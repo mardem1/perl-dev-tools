@@ -35,3 +35,8 @@ inc/
 /*.zip
 
 /notes.txt
+/.project
+/.vscode/
+/.idea/
+**/*.bak
+**/*.tdy
