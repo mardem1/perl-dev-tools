@@ -35,7 +35,9 @@ inc/
 /*.zip
 
 /notes.txt
+/test.bat
 /.project
+/.includepath
 /.vscode/
 /.idea/
 **/*.bak
