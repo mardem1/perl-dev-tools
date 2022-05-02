@@ -1,0 +1,4 @@
+
+severity = gentle
+
+[-CodeLayout::RequireTidyCode]
