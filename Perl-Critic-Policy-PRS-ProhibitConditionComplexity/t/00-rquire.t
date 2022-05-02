@@ -13,7 +13,8 @@ use Test2::Tools::Exception qw/lives/;
 plan tests => 1;
 
 ok( lives {
-    require Perl::Critic::Policy::PRS::ProhibitConditionComplexity;
-} );
+        require Perl::Critic::Policy::PRS::ProhibitConditionComplexity;
+    }
+);
 
 done_testing();
