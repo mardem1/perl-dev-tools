@@ -76,7 +76,7 @@ sub get_perl_critic_object {
 ~;
 
     my @violations = $pc->critique( \$code );
-    ok !@violations, 'complex if mcc value 3 allowed limit 4';
+    ok !@violations, 'no violation if mcc value 3 allowed limit 4';
 }
 
 done_testing();
