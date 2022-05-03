@@ -15,7 +15,7 @@ use Perl::Critic::Utils qw{ :severities };
 
 Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitConditionComplexity';
 
-plan tests => 11;
+plan tests => 12;
 
 #####
 
@@ -197,6 +197,22 @@ sub get_perl_critic_object {
     my @violations = $pc->critique( \$code );
 
     ok !!@violations, 'complex while mcc value reached';
+}
+
+#####
+
+{
+    my $pc = get_perl_critic_object();
+
+    my $code = q~
+        until( 1==1 || 2 == 3 && 4 == 6 ) {
+            print 'test not reached';
+        }
+~;
+
+    my @violations = $pc->critique( \$code );
+
+    ok !!@violations, 'complex until mcc value reached';
 }
 
 #####
