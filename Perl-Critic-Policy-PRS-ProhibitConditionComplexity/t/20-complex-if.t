@@ -15,7 +15,7 @@ use Perl::Critic::Utils qw{ :severities };
 
 Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitConditionComplexity';
 
-plan tests => 14;
+plan tests => 15;
 
 #####
 
@@ -245,6 +245,16 @@ sub get_perl_critic_object {
     my @violations = $pc->critique( \$code );
 
     ok !!@violations, 'complex for mcc value reached';
+
+    my $correct_text = 0;
+
+    if (@violations) {
+        my Perl::Critic::Violation $violation = $violations[0];
+        $correct_text = $violation->description() =~ /"for" condition .* complexity score \(\d+\)/io;
+
+    }
+
+    ok $correct_text, 'violation description correct with for';
 }
 
 #####
