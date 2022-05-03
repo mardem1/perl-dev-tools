@@ -25,7 +25,7 @@ sub default_themes {
 }
 
 sub applies_to {
-    return ('PPI::Structure::Condition');
+    return ( 'PPI::Structure::Condition', 'PPI::Structure::For' );
 }
 
 sub supported_parameters {
