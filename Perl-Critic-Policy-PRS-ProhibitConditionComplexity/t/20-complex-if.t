@@ -17,6 +17,8 @@ Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitConditio
 
 plan tests => 7;
 
+#####
+
 sub get_perl_critic_object {
     my @configs = @_;
 
@@ -32,6 +34,20 @@ sub get_perl_critic_object {
     return $pc;
 }
 
+#####
+
+{
+    my $pc = get_perl_critic_object();
+
+    my $code = q~
+~;
+
+    my @violations = $pc->critique( \$code );
+    ok !@violations, 'empty code block ok';
+}
+
+#####
+
 {
     my $pc = get_perl_critic_object( -params => { max_mccabe => 1 } );
 
@@ -45,6 +61,8 @@ sub get_perl_critic_object {
 
     ok !@violations, 'if(1) no violation';
 }
+
+#####
 
 {
     my $pc = get_perl_critic_object( -params => { max_mccabe => 1 } );
@@ -60,6 +78,8 @@ sub get_perl_critic_object {
     ok !@violations, 'if(1==1) no violation';
 }
 
+#####
+
 {
     my $pc = get_perl_critic_object( -params => { max_mccabe => 1 } );
 
@@ -74,15 +94,7 @@ sub get_perl_critic_object {
     ok !@violations, 'if(!1) no violation';
 }
 
-{
-    my $pc = get_perl_critic_object();
-
-    my $code = q~
-~;
-
-    my @violations = $pc->critique( \$code );
-    ok !@violations, 'empty code block ok';
-}
+#####
 
 {
     my $pc = get_perl_critic_object();
@@ -108,6 +120,8 @@ sub get_perl_critic_object {
     ok $correct_text, 'descript correct  mcc value 3 not allowd';
 }
 
+#####
+
 {
     my $pc = get_perl_critic_object( -params => { max_mccabe => 4 } );
 
@@ -120,5 +134,7 @@ sub get_perl_critic_object {
     my @violations = $pc->critique( \$code );
     ok !@violations, 'no violation if mcc value 3 allowed limit 4';
 }
+
+#####
 
 done_testing();
