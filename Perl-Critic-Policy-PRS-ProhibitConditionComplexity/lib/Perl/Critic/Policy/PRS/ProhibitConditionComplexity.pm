@@ -8,6 +8,7 @@ use warnings;
 our $VERSION = '0.01';
 
 use Readonly;
+use List::Util qw(first);
 
 use Perl::Critic::Utils qw{ :severities :data_conversion :classification };
 use Perl::Critic::Utils::McCabe qw{ calculate_mccabe_of_main };
@@ -15,6 +16,9 @@ use Perl::Critic::Utils::McCabe qw{ calculate_mccabe_of_main };
 use base 'Perl::Critic::Policy';
 
 Readonly::Scalar my $EXPL => q{Consider refactoring};
+
+Readonly::Array my @block_search_keyword => qw(
+    if unless do while until for );
 
 sub default_severity {
     return $SEVERITY_MEDIUM;
@@ -39,6 +43,14 @@ sub supported_parameters {
     );
 }
 
+sub keyword_in_searchlist {
+    my ($keyword) = @_;
+
+    my $found = first { $_ eq $keyword } @block_search_keyword;
+
+    return $found;
+}
+
 sub violates {
     my ( $self, $elem, $doc ) = @_;
 
@@ -47,7 +59,27 @@ sub violates {
         return;
     }
 
-    my $desc = qq<Condition-Block has a high complexity score ($score)>;
+    my $word_search    = $elem->sprevious_sibling;
+    my $content_search = "";
+
+    $content_search = $word_search->content if ref $word_search;
+    for ( my $i = 1; ( $i < 10 ) && !keyword_in_searchlist($content_search); $i++ ) {
+        my $tmp = $word_search->sprevious_sibling if ref $word_search;
+        if ( $tmp && ref $word_search && $tmp != $word_search ) {
+            $word_search    = $tmp;
+            $content_search = $word_search->content;
+        }
+        else {
+            last;
+        }
+    }
+
+    my ($block_keyword) = keyword_in_searchlist($content_search);
+    if ( !$block_keyword ) {
+        return;
+    }
+
+    my $desc = qq<"${block_keyword}" condition has a high complexity score ($score)>;
     return $self->violation( $desc, $EXPL, $elem );
 }
 

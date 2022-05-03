@@ -145,7 +145,7 @@ sub get_perl_critic_object {
 
     if (@violations) {
         my Perl::Critic::Violation $violation = $violations[0];
-        $correct_text = $violation->description() =~ /condition-block .* complexity score \(3\)/io;
+        $correct_text = $violation->description() =~ /"if" condition .* complexity score \(3\)/io;
 
     }
 
