@@ -15,7 +15,7 @@ use Perl::Critic::Utils qw{ :severities };
 
 Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitConditionComplexity';
 
-plan tests => 8;
+plan tests => 9;
 
 #####
 
@@ -108,6 +108,22 @@ sub get_perl_critic_object {
     my @violations = $pc->critique( \$code );
 
     ok @violations, 'violation with logical and';
+}
+
+#####
+
+{
+    my $pc = get_perl_critic_object( -params => { max_mccabe => 2 } );
+
+    my $code = q~
+		if( ! 1 && 1 ) {
+			return $x;
+		}
+    ~;
+
+    my @violations = $pc->critique( \$code );
+
+    ok !@violations, 'no violation with logical and when mcc 2 allowed';
 }
 
 #####
