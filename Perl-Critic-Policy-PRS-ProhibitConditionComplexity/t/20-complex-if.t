@@ -17,7 +17,9 @@ Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitConditio
 
 plan tests => 3;
 
-{
+sub get_perl_critic_object {
+    my @configs = @_;
+
     my $pc = Perl::Critic->new(
         -profile  => 'NONE',
         -only     => 1,
@@ -25,24 +27,23 @@ plan tests => 3;
         -force    => 0
     );
 
-    $pc->add_policy( -policy => $POLICY_NAME );
+    $pc->add_policy( -policy => $POLICY_NAME, @configs );
+
+    return $pc;
+}
+
+{
+    my $pc = get_perl_critic_object();
 
     my $code = q~
 ~;
 
     my @violations = $pc->critique( \$code );
-    ok !@violations , 'empty code block ok';
+    ok !@violations, 'empty code block ok';
 }
 
 {
-    my $pc = Perl::Critic->new(
-        -profile  => 'NONE',
-        -only     => 1,
-        -severity => 1,
-        -force    => 0
-    );
-
-    $pc->add_policy( -policy => $POLICY_NAME );
+    my $pc = get_perl_critic_object();
 
     my $code = q~
         if( 1 == 0 && 2 == 3 || 4 == 6 ) {
@@ -51,18 +52,11 @@ plan tests => 3;
 ~;
 
     my @violations = $pc->critique( \$code );
-    ok !!@violations , 'complex if mcc value 3 not allowd limit 2' ;
+    ok !!@violations, 'complex if mcc value 3 not allowd limit 2';
 }
 
 {
-    my $pc = Perl::Critic->new(
-        -profile  => 'NONE',
-        -only     => 1,
-        -severity => 1,
-        -force    => 0
-    );
-
-    $pc->add_policy( -policy => $POLICY_NAME , -params => { max_mccabe => 4 } );
+    my $pc = get_perl_critic_object( -params => { max_mccabe => 4 } );
 
     my $code = q~
         if( 1 == 0 && 2 == 3 || 4 == 6 ) {
@@ -71,7 +65,7 @@ plan tests => 3;
 ~;
 
     my @violations = $pc->critique( \$code );
-    ok !@violations , 'complex if mcc value 3 allowed limit 4';
+    ok !@violations, 'complex if mcc value 3 allowed limit 4';
 }
 
 done_testing();
