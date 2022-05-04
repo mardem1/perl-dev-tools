@@ -164,9 +164,9 @@ sub _get_description_from_violations
 
     ok !!@violations, 'complex if mcc value reached';
 
-    my $correct_text = _get_description_from_violations(@violations) =~ /"if" condition .* complexity score \(3\)/io;
+    my $desc = _get_description_from_violations(@violations);
 
-    ok $correct_text, 'descript correct mcc value 3 not allowd';
+    like $desc, qr/"if" condition .* complexity score \(3\)/io, 'descript correct mcc value 3 not allowd';
 }
 
 #####
@@ -251,9 +251,9 @@ sub _get_description_from_violations
 
     ok !!@violations, 'complex for mcc value reached';
 
-    my $correct_text = _get_description_from_violations(@violations) =~ /"for" condition .* complexity score \(\d+\)/io;
+    my $desc = _get_description_from_violations(@violations);
 
-    ok $correct_text, 'violation description correct with for';
+    like $desc, qr/"for" condition .* complexity score \(\d+\)/io, 'violation description correct with for';
 }
 
 #####
