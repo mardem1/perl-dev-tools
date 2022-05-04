@@ -61,31 +61,25 @@ sub _search_for_block_keyword
 {
     my ($elem) = @_;
 
-    my $word_search    = $elem->sprevious_sibling;
-    my $content_search = q{};
-
-    if ( ref $word_search ) {
-        $content_search = $word_search->content;
-    }
+    my $word_search   = $elem;
+    my $block_keyword = undef;
 
     my $i = 1;
-
-    my $block_keyword = _keyword_in_searchlist($content_search);
 
     while ( !$block_keyword ) {
         if ( $i >= $MAX_KEYWORD_LOOKUP_DEPTH ) {
             last;    # recurse abort!
         }
 
-        my $sprevious;
-
         if ( ref $word_search ) {
-            $sprevious = $word_search->sprevious_sibling;
+            my $sprevious = $word_search->sprevious_sibling;
 
             if ( $sprevious && $sprevious != $word_search ) {
-                $word_search    = $sprevious;
-                $content_search = $word_search->content;
-                $block_keyword  = _keyword_in_searchlist($content_search);
+                $word_search = $sprevious;
+
+                my $content_search = $word_search->content;
+
+                $block_keyword = _keyword_in_searchlist($content_search);
             }
             else {
                 last;
