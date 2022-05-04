@@ -17,7 +17,8 @@ use base 'Perl::Critic::Policy';
 
 Readonly::Scalar my $EXPL => q{Consider refactoring};
 
-Readonly::Array my @BLOCK_SEARCH_KEYWORD => qw(if elsif unless do while until for);
+# see lib\PPI\Lexer.pm
+Readonly::Array my @BLOCK_SEARCH_KEYWORD => qw(if elsif unless while until for foreach);
 
 Readonly::Scalar my $MAX_KEYWORD_LOOKUP_DEPTH => 10;
 
@@ -104,7 +105,7 @@ sub violates
 
     my $block_keyword = _search_for_block_keyword($elem);
     if ( !$block_keyword ) {
-        return;
+        $block_keyword = 'no-keyword-found';
     }
 
     my $desc = qq<"${block_keyword}" condition has a high complexity score ($score)>;
