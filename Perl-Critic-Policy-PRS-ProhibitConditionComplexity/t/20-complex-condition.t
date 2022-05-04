@@ -9,7 +9,6 @@ our $VERSION = '0.01';
 
 use Readonly;
 use Test::More;
-
 use Perl::Critic;
 use Perl::Critic::Utils qw{ :severities };
 
@@ -19,7 +18,7 @@ Readonly::Scalar my $MCC_VALUE_1 => 1;
 Readonly::Scalar my $MCC_VALUE_2 => 2;
 Readonly::Scalar my $MCC_VALUE_4 => 4;
 
-# plan tests => 16;
+plan tests => 20;
 
 #####
 
@@ -139,6 +138,10 @@ END_OF_STRING
     my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
 
     ok @violations, 'violation with logical and';
+
+    my $desc = _get_description_from_violations(@violations);
+
+    like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio, 'violation description correct with if';
 }
 
 #####
@@ -199,6 +202,11 @@ END_OF_STRING
     my @violations = _check_perl_critic( \$code );
 
     ok !!@violations, 'complex unless mcc value reached';
+
+    my $desc = _get_description_from_violations(@violations);
+
+    like $desc, qr/"unless"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio,
+        'violation description correct with unless';
 }
 
 #####
@@ -213,6 +221,11 @@ END_OF_STRING
     my @violations = _check_perl_critic( \$code );
 
     ok !!@violations, 'complex while mcc value reached';
+
+    my $desc = _get_description_from_violations(@violations);
+
+    like $desc, qr/"while"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio,
+        'violation description correct with while';
 }
 
 #####
@@ -227,6 +240,11 @@ END_OF_STRING
     my @violations = _check_perl_critic( \$code );
 
     ok !!@violations, 'complex until mcc value reached';
+
+    my $desc = _get_description_from_violations(@violations);
+
+    like $desc, qr/"until"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio,
+        'violation description correct with until';
 }
 
 #####
@@ -245,7 +263,7 @@ END_OF_STRING
     my $desc = _get_description_from_violations(@violations);
 
     like $desc, qr/"while"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio,
-        'violation description correct with while';
+        'violation description correct with do-while';
 }
 
 #####
