@@ -73,20 +73,30 @@ sub violates
         $content_search = $word_search->content;
     }
 
-    for ( my $i = 1; ( $i < $MAX_KEYWORD_LOOKUP_DEPTH ) && !keyword_in_searchlist($content_search); $i++ ) {
+    my $i = 1;
+    while ( !keyword_in_searchlist($content_search) ) {
+        if ( $i >= $MAX_KEYWORD_LOOKUP_DEPTH ) {
+            last;    # recurse abort!
+        }
+
         my $sprevious;
 
         if ( ref $word_search ) {
             $sprevious = $word_search->sprevious_sibling;
-        }
 
-        if ( $sprevious && $sprevious != $word_search ) {
-            $word_search    = $sprevious;
-            $content_search = $word_search->content;
+            if ( $sprevious && $sprevious != $word_search ) {
+                $word_search    = $sprevious;
+                $content_search = $word_search->content;
+            }
+            else {
+                last;
+            }
         }
         else {
             last;
         }
+
+        $i++;
     }
 
     my ($block_keyword) = keyword_in_searchlist($content_search);
