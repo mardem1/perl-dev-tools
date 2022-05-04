@@ -61,18 +61,16 @@ sub _get_description_from_violations
 {
     my @violations = @_;
 
-    my $desc = "";
-
     if (@violations) {
         my Perl::Critic::Violation $violation = shift @violations;
-        my $tmp = $violation->description();
+        my $desc = $violation->description();
 
-        if ($tmp) {
-            $desc = $tmp;
+        if ($desc) {
+            return $desc;
         }
     }
 
-    return $desc;
+    return q{};
 }
 
 #####
