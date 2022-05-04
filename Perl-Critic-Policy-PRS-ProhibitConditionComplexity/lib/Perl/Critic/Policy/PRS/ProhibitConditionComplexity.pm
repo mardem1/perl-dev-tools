@@ -57,14 +57,9 @@ sub _keyword_in_searchlist
     return $found;
 }
 
-sub violates
+sub _search_for_block_keyword
 {
-    my ( $self, $elem, $doc ) = @_;
-
-    my $score = calculate_mccabe_of_main($elem);
-    if ( $score <= $self->{_max_mccabe} ) {
-        return;
-    }
+    my ($elem) = @_;
 
     my $word_search    = $elem->sprevious_sibling;
     my $content_search = q{};
@@ -74,6 +69,7 @@ sub violates
     }
 
     my $i = 1;
+
     while ( !_keyword_in_searchlist($content_search) ) {
         if ( $i >= $MAX_KEYWORD_LOOKUP_DEPTH ) {
             last;    # recurse abort!
@@ -100,6 +96,20 @@ sub violates
     }
 
     my ($block_keyword) = _keyword_in_searchlist($content_search);
+
+    return $block_keyword;
+}
+
+sub violates
+{
+    my ( $self, $elem, $doc ) = @_;
+
+    my $score = calculate_mccabe_of_main($elem);
+    if ( $score <= $self->{_max_mccabe} ) {
+        return;
+    }
+
+    my $block_keyword = _search_for_block_keyword($elem);
     if ( !$block_keyword ) {
         return;
     }
