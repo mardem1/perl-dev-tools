@@ -19,7 +19,7 @@ plan tests => 15;
 
 #####
 
-sub get_perl_critic_object
+sub _get_perl_critic_object
 {
     my @configs = @_;
 
@@ -46,7 +46,7 @@ sub _check_perl_critic
         @params = ( -params => { max_mccabe => $max_mccabe } );
     }
 
-    my $pc = get_perl_critic_object(@params);
+    my $pc = _get_perl_critic_object(@params);
 
     return $pc->critique($code_ref);
 }
