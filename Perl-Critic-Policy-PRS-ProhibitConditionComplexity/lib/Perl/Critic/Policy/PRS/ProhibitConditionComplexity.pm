@@ -69,8 +69,13 @@ sub violates
 
     $content_search = $word_search->content if ref $word_search;
     for ( my $i = 1; ( $i < 10 ) && !keyword_in_searchlist($content_search); $i++ ) {
-        my $tmp = $word_search->sprevious_sibling if ref $word_search;
-        if ( $tmp && ref $word_search && $tmp != $word_search ) {
+        my $tmp;
+
+        if ( ref $word_search ) {
+            $tmp = $word_search->sprevious_sibling;
+        }
+
+        if ( $tmp && $tmp != $word_search ) {
             $word_search    = $tmp;
             $content_search = $word_search->content;
         }
