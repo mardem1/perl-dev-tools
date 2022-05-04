@@ -18,7 +18,7 @@ Readonly::Scalar my $MCC_VALUE_1 => 1;
 Readonly::Scalar my $MCC_VALUE_2 => 2;
 Readonly::Scalar my $MCC_VALUE_4 => 4;
 
-plan tests => 22;
+plan tests => 25;
 
 #####
 
@@ -304,6 +304,37 @@ END_OF_STRING
 
     like $desc, qr/"elsif"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio,
         'violation description correct with elsif';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        if( 1==1 || 2 == 3 && 4 == 6 && ( 1==1 || 2 == 3 && 4 == 6 || ( 1==1 || 2 == 3 && 4 == 6 ) ) ) {
+            print 'test not reached';
+        }
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code );
+
+    ok !!@violations, 'complex if with sub-condition-blockes mcc value reached';
+
+    my $desc = _get_description_from_violations(@violations);
+
+    like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio,
+        'violation description correct with if which includes sub-blocks';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        my $test = ( 1 == 0 && 2 == 3 || 4 == 6 ) ? "true" : "false";
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !@violations, 'complex condition in assignment has no violation because no PPI::Structure::Condition';
 }
 
 #####
