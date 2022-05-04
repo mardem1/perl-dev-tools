@@ -70,7 +70,9 @@ sub _search_for_block_keyword
 
     my $i = 1;
 
-    while ( !_keyword_in_searchlist($content_search) ) {
+    my $block_keyword = _keyword_in_searchlist($content_search);
+
+    while ( !$block_keyword ) {
         if ( $i >= $MAX_KEYWORD_LOOKUP_DEPTH ) {
             last;    # recurse abort!
         }
@@ -83,6 +85,7 @@ sub _search_for_block_keyword
             if ( $sprevious && $sprevious != $word_search ) {
                 $word_search    = $sprevious;
                 $content_search = $word_search->content;
+                $block_keyword  = _keyword_in_searchlist($content_search);
             }
             else {
                 last;
@@ -94,8 +97,6 @@ sub _search_for_block_keyword
 
         $i++;
     }
-
-    my ($block_keyword) = _keyword_in_searchlist($content_search);
 
     return $block_keyword;
 }
