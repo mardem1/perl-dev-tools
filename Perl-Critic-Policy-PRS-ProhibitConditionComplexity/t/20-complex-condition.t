@@ -53,6 +53,26 @@ sub _check_perl_critic
 
 #####
 
+sub _get_description_from_violations
+{
+    my @violations = @_;
+
+    my $desc = "";
+
+    if (@violations) {
+        my Perl::Critic::Violation $violation = shift @violations;
+        my $tmp = $violation->description();
+
+        if ($tmp) {
+            $desc = $tmp;
+        }
+    }
+
+    return $desc;
+}
+
+#####
+
 {
     my $code = q~
 ~;
@@ -144,13 +164,7 @@ sub _check_perl_critic
 
     ok !!@violations, 'complex if mcc value reached';
 
-    my $correct_text = 0;
-
-    if (@violations) {
-        my Perl::Critic::Violation $violation = $violations[0];
-        $correct_text = $violation->description() =~ /"if" condition .* complexity score \(3\)/io;
-
-    }
+    my $correct_text = _get_description_from_violations(@violations) =~ /"if" condition .* complexity score \(3\)/io;
 
     ok $correct_text, 'descript correct mcc value 3 not allowd';
 }
@@ -237,13 +251,7 @@ sub _check_perl_critic
 
     ok !!@violations, 'complex for mcc value reached';
 
-    my $correct_text = 0;
-
-    if (@violations) {
-        my Perl::Critic::Violation $violation = $violations[0];
-        $correct_text = $violation->description() =~ /"for" condition .* complexity score \(\d+\)/io;
-
-    }
+    my $correct_text = _get_description_from_violations(@violations) =~ /"for" condition .* complexity score \(\d+\)/io;
 
     ok $correct_text, 'violation description correct with for';
 }
