@@ -166,7 +166,7 @@ sub _get_description_from_violations
 
     my $desc = _get_description_from_violations(@violations);
 
-    like $desc, qr/"if" condition .* complexity score \(3\)/io, 'descript correct mcc value 3 not allowd';
+    like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]3[)]/xmsio, 'descript correct mcc value 3 not allowd';
 }
 
 #####
@@ -253,7 +253,7 @@ sub _get_description_from_violations
 
     my $desc = _get_description_from_violations(@violations);
 
-    like $desc, qr/"for" condition .* complexity score \(\d+\)/io, 'violation description correct with for';
+    like $desc, qr/"for"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio, 'violation description correct with for';
 }
 
 #####
