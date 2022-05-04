@@ -65,7 +65,7 @@ sub violates
     }
 
     my $word_search    = $elem->sprevious_sibling;
-    my $content_search = "";
+    my $content_search = q{};
 
     $content_search = $word_search->content if ref $word_search;
     for ( my $i = 1; ( $i < 10 ) && !keyword_in_searchlist($content_search); $i++ ) {
