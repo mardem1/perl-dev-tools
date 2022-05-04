@@ -89,9 +89,9 @@ sub _get_description_from_violations
 
 {
     my $code = q~
-		if(1) {
-			return $x;
-		}
+        if(1) {
+            return $x;
+        }
     ~;
 
     my @violations = _check_perl_critic( \$code );
@@ -103,9 +103,9 @@ sub _get_description_from_violations
 
 {
     my $code = q~
-		if(1==1) {
-			return $x;
-		}
+        if(1==1) {
+            return $x;
+        }
     ~;
 
     my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
@@ -117,9 +117,9 @@ sub _get_description_from_violations
 
 {
     my $code = q~
-		if(!1) {
-			return $x;
-		}
+        if(!1) {
+            return $x;
+        }
     ~;
 
     my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
@@ -131,9 +131,9 @@ sub _get_description_from_violations
 
 {
     my $code = q~
-		if( ! 1 && 1 ) {
-			return $x;
-		}
+        if( ! 1 && 1 ) {
+            return $x;
+        }
     ~;
 
     my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
@@ -145,9 +145,9 @@ sub _get_description_from_violations
 
 {
     my $code = q~
-		if( ! 1 && 1 ) {
-			return $x;
-		}
+        if( ! 1 && 1 ) {
+            return $x;
+        }
     ~;
 
     my @violations = _check_perl_critic( \$code, $MCC_VALUE_2 );
