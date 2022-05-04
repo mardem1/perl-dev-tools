@@ -36,6 +36,12 @@ sub get_perl_critic_object {
 
 #####
 
+sub get_perl_critic_object_mcc_1 {
+    return get_perl_critic_object( -params => { max_mccabe => 1 } );
+}
+
+#####
+
 {
     my $pc = get_perl_critic_object();
 
@@ -49,7 +55,7 @@ sub get_perl_critic_object {
 #####
 
 {
-    my $pc = get_perl_critic_object( -params => { max_mccabe => 1 } );
+    my $pc =
 
     my $code = q~
 		if(1) {
@@ -65,7 +71,7 @@ sub get_perl_critic_object {
 #####
 
 {
-    my $pc = get_perl_critic_object( -params => { max_mccabe => 1 } );
+    my $pc = get_perl_critic_object_mcc_1();
 
     my $code = q~
 		if(1==1) {
@@ -81,7 +87,7 @@ sub get_perl_critic_object {
 #####
 
 {
-    my $pc = get_perl_critic_object( -params => { max_mccabe => 1 } );
+    my $pc = get_perl_critic_object_mcc_1();
 
     my $code = q~
 		if(!1) {
@@ -97,7 +103,7 @@ sub get_perl_critic_object {
 #####
 
 {
-    my $pc = get_perl_critic_object( -params => { max_mccabe => 1 } );
+    my $pc = get_perl_critic_object_mcc_1();
 
     my $code = q~
 		if( ! 1 && 1 ) {
