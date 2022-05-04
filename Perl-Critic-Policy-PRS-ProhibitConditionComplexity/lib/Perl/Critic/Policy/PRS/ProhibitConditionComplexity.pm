@@ -20,19 +20,23 @@ Readonly::Scalar my $EXPL => q{Consider refactoring};
 Readonly::Array my @block_search_keyword => qw(
     if unless do while until for );
 
-sub default_severity {
+sub default_severity
+{
     return $SEVERITY_MEDIUM;
 }
 
-sub default_themes {
+sub default_themes
+{
     return qw(complexity maintenance);
 }
 
-sub applies_to {
+sub applies_to
+{
     return ( 'PPI::Structure::Condition', 'PPI::Structure::For' );
 }
 
-sub supported_parameters {
+sub supported_parameters
+{
     return (
         {   name            => 'max_mccabe',
             description     => 'The maximum complexity score allowed.',
@@ -43,7 +47,8 @@ sub supported_parameters {
     );
 }
 
-sub keyword_in_searchlist {
+sub keyword_in_searchlist
+{
     my ($keyword) = @_;
 
     my $found = first { $_ eq $keyword } @block_search_keyword;
@@ -51,7 +56,8 @@ sub keyword_in_searchlist {
     return $found;
 }
 
-sub violates {
+sub violates
+{
     my ( $self, $elem, $doc ) = @_;
 
     my $score = calculate_mccabe_of_main($elem);
