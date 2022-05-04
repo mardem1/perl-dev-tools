@@ -19,7 +19,7 @@ Readonly::Scalar my $MCC_VALUE_1 => 1;
 Readonly::Scalar my $MCC_VALUE_2 => 2;
 Readonly::Scalar my $MCC_VALUE_4 => 4;
 
-plan tests => 15;
+# plan tests => 16;
 
 #####
 
@@ -241,6 +241,11 @@ END_OF_STRING
     my @violations = _check_perl_critic( \$code );
 
     ok !!@violations, 'complex do-while mcc value reached';
+
+    my $desc = _get_description_from_violations(@violations);
+
+    like $desc, qr/"while"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio,
+        'violation description correct with while';
 }
 
 #####
