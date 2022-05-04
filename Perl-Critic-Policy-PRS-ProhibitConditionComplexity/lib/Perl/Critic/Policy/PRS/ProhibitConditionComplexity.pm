@@ -17,8 +17,7 @@ use base 'Perl::Critic::Policy';
 
 Readonly::Scalar my $EXPL => q{Consider refactoring};
 
-Readonly::Array my @block_search_keyword => qw(
-    if unless do while until for );
+Readonly::Array my @BLOCK_SEARCH_KEYWORD => qw(if unless do while until for);
 
 sub default_severity
 {
@@ -51,7 +50,7 @@ sub keyword_in_searchlist
 {
     my ($keyword) = @_;
 
-    my $found = first { $_ eq $keyword } @block_search_keyword;
+    my $found = first { $_ eq $keyword } @BLOCK_SEARCH_KEYWORD;
 
     return $found;
 }
