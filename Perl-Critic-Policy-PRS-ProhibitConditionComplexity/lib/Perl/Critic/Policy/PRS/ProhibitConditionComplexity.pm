@@ -72,14 +72,14 @@ sub violates
     }
 
     for ( my $i = 1; ( $i < 10 ) && !keyword_in_searchlist($content_search); $i++ ) {
-        my $tmp;
+        my $sprevious;
 
         if ( ref $word_search ) {
-            $tmp = $word_search->sprevious_sibling;
+            $sprevious = $word_search->sprevious_sibling;
         }
 
-        if ( $tmp && $tmp != $word_search ) {
-            $word_search    = $tmp;
+        if ( $sprevious && $sprevious != $word_search ) {
+            $word_search    = $sprevious;
             $content_search = $word_search->content;
         }
         else {
