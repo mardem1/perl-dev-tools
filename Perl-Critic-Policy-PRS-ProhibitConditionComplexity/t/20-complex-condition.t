@@ -36,34 +36,39 @@ sub get_perl_critic_object {
 
 #####
 
-sub get_perl_critic_object_mcc_1 {
-    return get_perl_critic_object( -params => { max_mccabe => 1 } );
+sub _check_perl_critic {
+    my ( $code_ref, $max_mccabe ) = @_;
+
+    my @params = ();
+    if ($max_mccabe) {
+        @params = ( -params => { max_mccabe => $max_mccabe } );
+    }
+
+    my $pc = get_perl_critic_object(@params);
+
+    return $pc->critique($code_ref);
 }
 
 #####
 
 {
-    my $pc = get_perl_critic_object();
-
     my $code = q~
 ~;
 
-    my @violations = $pc->critique( \$code );
+    my @violations = _check_perl_critic( \$code );
     ok !@violations, 'empty code block ok';
 }
 
 #####
 
 {
-    my $pc =
-
     my $code = q~
 		if(1) {
 			return $x;
 		}
     ~;
 
-    my @violations = $pc->critique( \$code );
+    my @violations = _check_perl_critic( \$code );
 
     ok !@violations, 'if(1) no violation';
 }
@@ -71,15 +76,13 @@ sub get_perl_critic_object_mcc_1 {
 #####
 
 {
-    my $pc = get_perl_critic_object_mcc_1();
-
     my $code = q~
 		if(1==1) {
 			return $x;
 		}
     ~;
 
-    my @violations = $pc->critique( \$code );
+    my @violations = _check_perl_critic( \$code, 1 );
 
     ok !@violations, 'if(1==1) no violation';
 }
@@ -87,15 +90,13 @@ sub get_perl_critic_object_mcc_1 {
 #####
 
 {
-    my $pc = get_perl_critic_object_mcc_1();
-
     my $code = q~
 		if(!1) {
 			return $x;
 		}
     ~;
 
-    my @violations = $pc->critique( \$code );
+    my @violations = _check_perl_critic( \$code, 1 );
 
     ok !@violations, 'if(!1) no violation';
 }
@@ -103,15 +104,13 @@ sub get_perl_critic_object_mcc_1 {
 #####
 
 {
-    my $pc = get_perl_critic_object_mcc_1();
-
     my $code = q~
 		if( ! 1 && 1 ) {
 			return $x;
 		}
     ~;
 
-    my @violations = $pc->critique( \$code );
+    my @violations = _check_perl_critic( \$code, 1 );
 
     ok @violations, 'violation with logical and';
 }
@@ -119,15 +118,13 @@ sub get_perl_critic_object_mcc_1 {
 #####
 
 {
-    my $pc = get_perl_critic_object( -params => { max_mccabe => 2 } );
-
     my $code = q~
 		if( ! 1 && 1 ) {
 			return $x;
 		}
     ~;
 
-    my @violations = $pc->critique( \$code );
+    my @violations = _check_perl_critic( \$code, 2 );
 
     ok !@violations, 'no violation with logical and when mcc 2 allowed';
 }
@@ -135,15 +132,13 @@ sub get_perl_critic_object_mcc_1 {
 #####
 
 {
-    my $pc = get_perl_critic_object();
-
     my $code = q~
         if( 1 == 0 && 2 == 3 || 4 == 6 ) {
             print 'test not reached';
         }
 ~;
 
-    my @violations = $pc->critique( \$code );
+    my @violations = _check_perl_critic( \$code );
 
     ok !!@violations, 'complex if mcc value reached';
 
@@ -161,30 +156,26 @@ sub get_perl_critic_object_mcc_1 {
 #####
 
 {
-    my $pc = get_perl_critic_object( -params => { max_mccabe => 4 } );
-
     my $code = q~
         if( 1 == 0 && 2 == 3 || 4 == 6 ) {
             print 'test not reached';
         }
 ~;
 
-    my @violations = $pc->critique( \$code );
+    my @violations = _check_perl_critic( \$code, 4 );
     ok !@violations, 'no violation if mcc value 3 allowed limit 4';
 }
 
 #####
 
 {
-    my $pc = get_perl_critic_object();
-
     my $code = q~
         unless( 1 == 0 && 2 == 3 || 4 == 6 ) {
             print 'test not reached';
         }
 ~;
 
-    my @violations = $pc->critique( \$code );
+    my @violations = _check_perl_critic( \$code );
 
     ok !!@violations, 'complex unless mcc value reached';
 }
@@ -192,15 +183,13 @@ sub get_perl_critic_object_mcc_1 {
 #####
 
 {
-    my $pc = get_perl_critic_object();
-
     my $code = q~
         while( 1 == 0 && 2 == 3 || 4 == 6 ) {
             print 'test not reached';
         }
 ~;
 
-    my @violations = $pc->critique( \$code );
+    my @violations = _check_perl_critic( \$code );
 
     ok !!@violations, 'complex while mcc value reached';
 }
@@ -208,15 +197,13 @@ sub get_perl_critic_object_mcc_1 {
 #####
 
 {
-    my $pc = get_perl_critic_object();
-
     my $code = q~
         until( 1==1 || 2 == 3 && 4 == 6 ) {
             print 'test not reached';
         }
 ~;
 
-    my @violations = $pc->critique( \$code );
+    my @violations = _check_perl_critic( \$code );
 
     ok !!@violations, 'complex until mcc value reached';
 }
@@ -224,15 +211,13 @@ sub get_perl_critic_object_mcc_1 {
 #####
 
 {
-    my $pc = get_perl_critic_object();
-
     my $code = q~
         do {
             print 'test not reached';
         } while( 1 == 0 && 2 == 3 || 4 == 6 );
 ~;
 
-    my @violations = $pc->critique( \$code );
+    my @violations = _check_perl_critic( \$code );
 
     ok !!@violations, 'complex do-while mcc value reached';
 }
@@ -240,15 +225,13 @@ sub get_perl_critic_object_mcc_1 {
 #####
 
 {
-    my $pc = get_perl_critic_object();
-
     my $code = q~
         for( my $i = 0; $i < 10 && 1 == 0 && 2 == 3 || 4 == 6 ; $i++) {
             print 'test not reached';
         }
 ~;
 
-    my @violations = $pc->critique( \$code );
+    my @violations = _check_perl_critic( \$code );
 
     ok !!@violations, 'complex for mcc value reached';
 
