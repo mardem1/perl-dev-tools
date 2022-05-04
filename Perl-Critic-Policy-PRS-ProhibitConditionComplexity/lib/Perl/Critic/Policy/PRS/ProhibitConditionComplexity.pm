@@ -61,6 +61,10 @@ sub _search_for_block_keyword
 {
     my ($elem) = @_;
 
+    if ( !ref $elem ) {
+        last;
+    }
+
     my $word_search   = $elem;
     my $block_keyword = undef;
 
@@ -71,23 +75,17 @@ sub _search_for_block_keyword
             last;    # recurse abort!
         }
 
-        if ( ref $word_search ) {
-            my $sprevious = $word_search->sprevious_sibling;
+        my $sprevious = $word_search->sprevious_sibling;
 
-            if ( $sprevious && $sprevious != $word_search ) {
-                $word_search = $sprevious;
-
-                my $content_search = $word_search->content;
-
-                $block_keyword = _keyword_in_searchlist($content_search);
-            }
-            else {
-                last;
-            }
-        }
-        else {
+        if ( !$sprevious || $sprevious == $word_search ) {
             last;
         }
+
+        $word_search = $sprevious;
+
+        my $content_search = $word_search->content;
+
+        $block_keyword = _keyword_in_searchlist($content_search);
 
         $i++;
     }
