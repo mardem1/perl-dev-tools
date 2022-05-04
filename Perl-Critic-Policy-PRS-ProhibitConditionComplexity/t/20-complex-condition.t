@@ -15,6 +15,10 @@ use Perl::Critic::Utils qw{ :severities };
 
 Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitConditionComplexity';
 
+Readonly::Scalar my $MCC_VALUE_1 => 1;
+Readonly::Scalar my $MCC_VALUE_2 => 2;
+Readonly::Scalar my $MCC_VALUE_4 => 4;
+
 plan tests => 15;
 
 #####
@@ -104,7 +108,7 @@ sub _get_description_from_violations
 		}
     ~;
 
-    my @violations = _check_perl_critic( \$code, 1 );
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
 
     ok !@violations, 'if(1==1) no violation';
 }
@@ -118,7 +122,7 @@ sub _get_description_from_violations
 		}
     ~;
 
-    my @violations = _check_perl_critic( \$code, 1 );
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
 
     ok !@violations, 'if(!1) no violation';
 }
@@ -132,7 +136,7 @@ sub _get_description_from_violations
 		}
     ~;
 
-    my @violations = _check_perl_critic( \$code, 1 );
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
 
     ok @violations, 'violation with logical and';
 }
@@ -146,7 +150,7 @@ sub _get_description_from_violations
 		}
     ~;
 
-    my @violations = _check_perl_critic( \$code, 2 );
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_2 );
 
     ok !@violations, 'no violation with logical and when mcc 2 allowed';
 }
@@ -178,7 +182,7 @@ sub _get_description_from_violations
         }
 ~;
 
-    my @violations = _check_perl_critic( \$code, 4 );
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_4 );
     ok !@violations, 'no violation if mcc value 3 allowed limit 4';
 }
 
