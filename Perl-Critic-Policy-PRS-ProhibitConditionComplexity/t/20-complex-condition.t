@@ -76,21 +76,23 @@ sub _get_description_from_violations
 #####
 
 {
-    my $code = q~
-~;
+    my $code = <<'END_OF_STRING';
+# empty code
+END_OF_STRING
 
     my @violations = _check_perl_critic( \$code );
+
     ok !@violations, 'empty code block ok';
 }
 
 #####
 
 {
-    my $code = q~
+    my $code = <<'END_OF_STRING';
         if(1) {
             return $x;
         }
-    ~;
+END_OF_STRING
 
     my @violations = _check_perl_critic( \$code );
 
@@ -100,11 +102,11 @@ sub _get_description_from_violations
 #####
 
 {
-    my $code = q~
+    my $code = <<'END_OF_STRING';
         if(1==1) {
             return $x;
         }
-    ~;
+END_OF_STRING
 
     my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
 
@@ -114,11 +116,11 @@ sub _get_description_from_violations
 #####
 
 {
-    my $code = q~
+    my $code = <<'END_OF_STRING';
         if(!1) {
             return $x;
         }
-    ~;
+END_OF_STRING
 
     my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
 
@@ -128,11 +130,11 @@ sub _get_description_from_violations
 #####
 
 {
-    my $code = q~
+    my $code = <<'END_OF_STRING';
         if( ! 1 && 1 ) {
             return $x;
         }
-    ~;
+END_OF_STRING
 
     my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
 
@@ -142,11 +144,11 @@ sub _get_description_from_violations
 #####
 
 {
-    my $code = q~
+    my $code = <<'END_OF_STRING';
         if( ! 1 && 1 ) {
             return $x;
         }
-    ~;
+END_OF_STRING
 
     my @violations = _check_perl_critic( \$code, $MCC_VALUE_2 );
 
@@ -156,11 +158,11 @@ sub _get_description_from_violations
 #####
 
 {
-    my $code = q~
+    my $code = <<'END_OF_STRING';
         if( 1 == 0 && 2 == 3 || 4 == 6 ) {
             print 'test not reached';
         }
-~;
+END_OF_STRING
 
     my @violations = _check_perl_critic( \$code );
 
@@ -174,24 +176,25 @@ sub _get_description_from_violations
 #####
 
 {
-    my $code = q~
+    my $code = <<'END_OF_STRING';
         if( 1 == 0 && 2 == 3 || 4 == 6 ) {
             print 'test not reached';
         }
-~;
+END_OF_STRING
 
     my @violations = _check_perl_critic( \$code, $MCC_VALUE_4 );
+
     ok !@violations, 'no violation if mcc value 3 allowed limit 4';
 }
 
 #####
 
 {
-    my $code = q~
+    my $code = <<'END_OF_STRING';
         unless( 1 == 0 && 2 == 3 || 4 == 6 ) {
             print 'test not reached';
         }
-~;
+END_OF_STRING
 
     my @violations = _check_perl_critic( \$code );
 
@@ -201,11 +204,11 @@ sub _get_description_from_violations
 #####
 
 {
-    my $code = q~
+    my $code = <<'END_OF_STRING';
         while( 1 == 0 && 2 == 3 || 4 == 6 ) {
             print 'test not reached';
         }
-~;
+END_OF_STRING
 
     my @violations = _check_perl_critic( \$code );
 
@@ -215,11 +218,11 @@ sub _get_description_from_violations
 #####
 
 {
-    my $code = q~
+    my $code = <<'END_OF_STRING';
         until( 1==1 || 2 == 3 && 4 == 6 ) {
             print 'test not reached';
         }
-~;
+END_OF_STRING
 
     my @violations = _check_perl_critic( \$code );
 
@@ -229,11 +232,11 @@ sub _get_description_from_violations
 #####
 
 {
-    my $code = q~
+    my $code = <<'END_OF_STRING';
         do {
             print 'test not reached';
         } while( 1 == 0 && 2 == 3 || 4 == 6 );
-~;
+END_OF_STRING
 
     my @violations = _check_perl_critic( \$code );
 
@@ -243,11 +246,11 @@ sub _get_description_from_violations
 #####
 
 {
-    my $code = q~
+    my $code = <<'END_OF_STRING';
         for( my $i = 0; $i < 10 && 1 == 0 && 2 == 3 || 4 == 6 ; $i++) {
             print 'test not reached';
         }
-~;
+END_OF_STRING
 
     my @violations = _check_perl_critic( \$code );
 
