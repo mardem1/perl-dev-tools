@@ -18,7 +18,7 @@ Readonly::Scalar my $MCC_VALUE_1 => 1;
 Readonly::Scalar my $MCC_VALUE_2 => 2;
 Readonly::Scalar my $MCC_VALUE_4 => 4;
 
-plan tests => 20;
+plan tests => 22;
 
 #####
 
@@ -173,7 +173,7 @@ END_OF_STRING
 
     my $desc = _get_description_from_violations(@violations);
 
-    like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]3[)]/xmsio, 'descript correct mcc value 3 not allowd';
+    like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]3[)]/xmsio, 'description correct mcc value 3 not allowd';
 }
 
 #####
@@ -282,6 +282,28 @@ END_OF_STRING
     my $desc = _get_description_from_violations(@violations);
 
     like $desc, qr/"for"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio, 'violation description correct with for';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        if(0!=0) }{
+            print 'test not reached';
+        }
+        elsif( 1 == 0 && 2 == 3 || 4 == 6 ) {
+            print 'test not reached';
+        }
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code );
+
+    ok !!@violations, 'complex elsif mcc value reached';
+
+    my $desc = _get_description_from_violations(@violations);
+
+    like $desc, qr/"elsif"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio,
+        'violation description correct with elsif';
 }
 
 #####

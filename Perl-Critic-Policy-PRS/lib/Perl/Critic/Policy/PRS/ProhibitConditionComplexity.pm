@@ -17,7 +17,7 @@ use base 'Perl::Critic::Policy';
 
 Readonly::Scalar my $EXPL => q{Consider refactoring};
 
-Readonly::Array my @BLOCK_SEARCH_KEYWORD => qw(if unless do while until for);
+Readonly::Array my @BLOCK_SEARCH_KEYWORD => qw(if elsif unless do while until for);
 
 Readonly::Scalar my $MAX_KEYWORD_LOOKUP_DEPTH => 10;
 
