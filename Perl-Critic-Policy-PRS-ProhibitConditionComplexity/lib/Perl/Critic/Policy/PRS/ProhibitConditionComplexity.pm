@@ -48,7 +48,7 @@ sub supported_parameters
     );
 }
 
-sub keyword_in_searchlist
+sub _keyword_in_searchlist
 {
     my ($keyword) = @_;
 
@@ -74,7 +74,7 @@ sub violates
     }
 
     my $i = 1;
-    while ( !keyword_in_searchlist($content_search) ) {
+    while ( !_keyword_in_searchlist($content_search) ) {
         if ( $i >= $MAX_KEYWORD_LOOKUP_DEPTH ) {
             last;    # recurse abort!
         }
@@ -99,7 +99,7 @@ sub violates
         $i++;
     }
 
-    my ($block_keyword) = keyword_in_searchlist($content_search);
+    my ($block_keyword) = _keyword_in_searchlist($content_search);
     if ( !$block_keyword ) {
         return;
     }
