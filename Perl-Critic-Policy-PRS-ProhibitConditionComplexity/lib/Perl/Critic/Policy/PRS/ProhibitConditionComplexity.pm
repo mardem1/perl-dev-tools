@@ -19,6 +19,8 @@ Readonly::Scalar my $EXPL => q{Consider refactoring};
 
 Readonly::Array my @BLOCK_SEARCH_KEYWORD => qw(if unless do while until for);
 
+Readonly::Scalar my $MAX_KEYWORD_LOOKUP_DEPTH => 10;
+
 sub default_severity
 {
     return $SEVERITY_MEDIUM;
@@ -71,7 +73,7 @@ sub violates
         $content_search = $word_search->content;
     }
 
-    for ( my $i = 1; ( $i < 10 ) && !keyword_in_searchlist($content_search); $i++ ) {
+    for ( my $i = 1; ( $i < $MAX_KEYWORD_LOOKUP_DEPTH ) && !keyword_in_searchlist($content_search); $i++ ) {
         my $sprevious;
 
         if ( ref $word_search ) {
