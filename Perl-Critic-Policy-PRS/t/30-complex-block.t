@@ -18,7 +18,7 @@ Readonly::Scalar my $MCC_VALUE_1 => 1;
 Readonly::Scalar my $MCC_VALUE_2 => 2;
 Readonly::Scalar my $MCC_VALUE_4 => 4;
 
-plan tests => 22;
+plan tests => 23;
 
 #####
 
@@ -359,6 +359,20 @@ END_OF_STRING
     my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
 
     ok !!@violations, 'complex tinaray within PACKAGE block';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        sub my_test{
+            print 'test ' . ( 1 == 0 && 2 == 3 || 4 == 6 ? '' : 'not ') . 'reached'."\n";
+        };
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !@violations, 'no complex violation for sub-block';
 }
 
 #####
