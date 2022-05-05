@@ -18,7 +18,7 @@ Readonly::Scalar my $MCC_VALUE_1 => 1;
 Readonly::Scalar my $MCC_VALUE_2 => 2;
 Readonly::Scalar my $MCC_VALUE_4 => 4;
 
-plan tests => 5;
+plan tests => 6;
 
 #####
 
@@ -124,6 +124,20 @@ END_OF_STRING
     my @violations = _check_perl_critic( \$code, $MCC_VALUE_4 );
 
     ok !@violations, 'complex if code block with inner if but mcc value 8 allowed';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        if( 1 ) {
+            print 'test ' . ( 1 == 0 && 2 == 3 || 4 == 6 ? '' : 'not ') . 'reached'."\n";
+        }
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !!@violations, 'complex tinaray within if block';
 }
 
 #####
