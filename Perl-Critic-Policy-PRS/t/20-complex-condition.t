@@ -18,7 +18,7 @@ Readonly::Scalar my $MCC_VALUE_1 => 1;
 Readonly::Scalar my $MCC_VALUE_2 => 2;
 Readonly::Scalar my $MCC_VALUE_4 => 4;
 
-plan tests => 25;
+plan tests => 27;
 
 #####
 
@@ -337,6 +337,25 @@ END_OF_STRING
     ok !@violations, 'complex condition in assignment has no violation because no PPI::Structure::Condition';
 }
 
+
 #####
+
+{
+    my $code = <<'END_OF_STRING';
+         print 'test not reached' if( 1==1 || 2 == 3 && 4 == 6 && ( 1==1 || 2 == 3 && 4 == 6 || ( 1==1 || 2 == 3 && 4 == 6 ) ) );
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code );
+
+    ok !!@violations, 'complex posix-if with sub-condition-blockes mcc value reached';
+
+    my $desc = _get_description_from_violations(@violations);
+
+    like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio,
+        'violation description correct with posix-if which includes sub-blocks';
+}
+
+#####
+
 
 done_testing();
