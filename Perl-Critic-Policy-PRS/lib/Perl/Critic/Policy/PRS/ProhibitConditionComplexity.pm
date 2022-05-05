@@ -18,7 +18,7 @@ use base 'Perl::Critic::Policy';
 Readonly::Scalar my $EXPL => q{Consider refactoring};
 
 # see lib\PPI\Lexer.pm
-Readonly::Array my @BLOCK_SEARCH_KEYWORD => qw(if elsif unless while until for foreach);
+Readonly::Array my @BLOCK_SEARCH_KEYWORD => qw(IF ELSIF UNLESS WHILE UNTIL FOR FOREACH);
 
 Readonly::Scalar my $MAX_KEYWORD_LOOKUP_DEPTH => 10;
 
@@ -53,6 +53,7 @@ sub _keyword_in_searchlist
 {
     my ($keyword) = @_;
 
+    $keyword = uc $keyword;
     my $found = first { $_ eq $keyword } @BLOCK_SEARCH_KEYWORD;
 
     return $found;
