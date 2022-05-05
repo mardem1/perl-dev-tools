@@ -7,6 +7,9 @@ use warnings;
 
 our $VERSION = '0.01';
 
+use Carp qw( verbose );
+use Carp::Always;
+
 use Readonly;
 use Test::More;
 use Perl::Critic;
@@ -18,7 +21,7 @@ Readonly::Scalar my $MCC_VALUE_1 => 1;
 Readonly::Scalar my $MCC_VALUE_2 => 2;
 Readonly::Scalar my $MCC_VALUE_4 => 4;
 
-plan tests => 3;
+plan tests => 4;
 
 #####
 
@@ -92,6 +95,22 @@ END_OF_STRING
     my @violations = _check_perl_critic( \$code );
 
     ok !@violations, 'simple if code block ok';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        if( 1 ) {
+            if( 1 == 0 && 2 == 3 || 4 == 6 ) {
+                print 'test not reached';
+            }
+        }
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code );
+
+    ok !!@violations, 'complex if code block with inner if';
 }
 
 #####
