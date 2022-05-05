@@ -54,6 +54,7 @@ sub _keyword_in_searchlist
     my ($keyword) = @_;
 
     $keyword = uc $keyword;
+
     my $found = first { $_ eq $keyword } @BLOCK_SEARCH_KEYWORD;
 
     return $found;
@@ -68,7 +69,7 @@ sub _search_for_block_keyword
     }
 
     my $word_search   = $elem;
-    my $block_keyword = undef;
+    my $block_keyword = q{};
 
     my $i = 1;
 
