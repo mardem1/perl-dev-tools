@@ -18,7 +18,7 @@ Readonly::Scalar my $MCC_VALUE_1 => 1;
 Readonly::Scalar my $MCC_VALUE_2 => 2;
 Readonly::Scalar my $MCC_VALUE_4 => 4;
 
-plan tests => 27;
+plan tests => 28;
 
 #####
 
@@ -337,7 +337,6 @@ END_OF_STRING
     ok !@violations, 'complex condition in assignment has no violation because no PPI::Structure::Condition';
 }
 
-
 #####
 
 {
@@ -357,5 +356,16 @@ END_OF_STRING
 
 #####
 
+{
+    my $code = <<'END_OF_STRING';
+         print 'test not reached' if 1==1 || 2 == 3 && 4 == 6;
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !@violations, 'posix-if without parentheses never tested becaus it\'s not an PPI::Structure::Condition';
+}
+
+#####
 
 done_testing();
