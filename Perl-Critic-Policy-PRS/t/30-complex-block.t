@@ -18,7 +18,7 @@ Readonly::Scalar my $MCC_VALUE_1 => 1;
 Readonly::Scalar my $MCC_VALUE_2 => 2;
 Readonly::Scalar my $MCC_VALUE_4 => 4;
 
-plan tests => 1;
+plan tests => 3;
 
 #####
 
@@ -58,12 +58,42 @@ sub _check_perl_critic
 
 {
     my $code = <<'END_OF_STRING';
-# empty code
+        # empty code
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code );
+
+    ok !@violations, 'empty code ok';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        if(1) {
+            # empty code block
+        }
 END_OF_STRING
 
     my @violations = _check_perl_critic( \$code );
 
     ok !@violations, 'empty code block ok';
 }
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        if( 1 == 0 && 2 == 3 || 4 == 6 ) {
+            print 'test not reached';
+        }
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code );
+
+    ok !@violations, 'simple if code block ok';
+}
+
+#####
 
 done_testing();
