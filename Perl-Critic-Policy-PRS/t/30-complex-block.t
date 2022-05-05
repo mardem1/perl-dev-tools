@@ -18,7 +18,7 @@ Readonly::Scalar my $MCC_VALUE_1 => 1;
 Readonly::Scalar my $MCC_VALUE_2 => 2;
 Readonly::Scalar my $MCC_VALUE_4 => 4;
 
-plan tests => 7;
+plan tests => 22;
 
 #####
 
@@ -152,6 +152,213 @@ END_OF_STRING
     my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
 
     ok !!@violations, 'complex tinaray within while block';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        unless( 1 ) {
+            print 'test ' . ( 1 == 0 && 2 == 3 || 4 == 6 ? '' : 'not ') . 'reached'."\n";
+        }
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !!@violations, 'complex tinaray within unless block';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        until( 1==1 ) {
+            print 'test ' . ( 1 == 0 && 2 == 3 || 4 == 6 ? '' : 'not ') . 'reached'."\n";
+        }
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !!@violations, 'complex tinaray within until block';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        do {
+            print 'test ' . ( 1 == 0 && 2 == 3 || 4 == 6 ? '' : 'not ') . 'reached'."\n";
+        } while( 1==0 );
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !!@violations, 'complex tinaray within do block';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        for( my $i=0; $i<10; $i++ ) {
+            print 'test ' . ( 1 == 0 && 2 == 3 || 4 == 6 ? '' : 'not ') . 'reached'."\n";
+        }
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !!@violations, 'complex tinaray within c-for-loop block';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        foreach( 1 .. 10 ) {
+            print 'test ' . ( 1 == 0 && 2 == 3 || 4 == 6 ? '' : 'not ') . 'reached'."\n";
+        }
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !!@violations, 'complex tinaray within foreach block';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        eval {
+            print 'test ' . ( 1 == 0 && 2 == 3 || 4 == 6 ? '' : 'not ') . 'reached'."\n";
+        };
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !!@violations, 'complex tinaray within eval block';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        my @a = (1,2,3);
+        my @x = sort { 1 == 0 && 2 == 3 || 4 == 6 } @a;
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !!@violations, 'complexsort block';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        my @a = (1,2,3);
+        my @x = map { 1 == 0 && 2 == 3 || 4 == 6 } @a;
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !!@violations, 'complex map block';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        my @a = (1,2,3);
+        my @x = grep { 1 == 0 && 2 == 3 || 4 == 6 } @a;
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !!@violations, 'complex grep block';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        BEGIN {
+            print 'test ' . ( 1 == 0 && 2 == 3 || 4 == 6 ? '' : 'not ') . 'reached'."\n";
+        };
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !!@violations, 'complex tinaray within BEGIN block';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        UNITCHECK {
+            print 'test ' . ( 1 == 0 && 2 == 3 || 4 == 6 ? '' : 'not ') . 'reached'."\n";
+        };
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !!@violations, 'complex tinaray within UNITCHECK block';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        CHECK {
+            print 'test ' . ( 1 == 0 && 2 == 3 || 4 == 6 ? '' : 'not ') . 'reached'."\n";
+        };
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !!@violations, 'complex tinaray within CHECK block';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        INIT {
+            print 'test ' . ( 1 == 0 && 2 == 3 || 4 == 6 ? '' : 'not ') . 'reached'."\n";
+        };
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !!@violations, 'complex tinaray within INIT block';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        END {
+            print 'test ' . ( 1 == 0 && 2 == 3 || 4 == 6 ? '' : 'not ') . 'reached'."\n";
+        };
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !!@violations, 'complex tinaray within END block';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        PACKAGE MyTest {
+            print 'test ' . ( 1 == 0 && 2 == 3 || 4 == 6 ? '' : 'not ') . 'reached'."\n";
+        };
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
+
+    ok !!@violations, 'complex tinaray within PACKAGE block';
 }
 
 #####
