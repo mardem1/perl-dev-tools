@@ -84,11 +84,13 @@ sub _search_for_block_keyword
             last;
         }
 
-        $word_search = $sprevious;
+        if ( !is_hash_key($sprevious) ) {
+            $word_search = $sprevious;
 
-        my $content_search = $word_search->content;
+            my $content_search = $word_search->content;
 
-        $block_keyword = _keyword_in_searchlist($content_search);
+            $block_keyword = _keyword_in_searchlist($content_search);
+        }
 
         $i++;
     }
