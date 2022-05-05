@@ -18,7 +18,7 @@ Readonly::Scalar my $MCC_VALUE_1 => 1;
 Readonly::Scalar my $MCC_VALUE_2 => 2;
 Readonly::Scalar my $MCC_VALUE_4 => 4;
 
-plan tests => 23;
+plan tests => 24;
 
 #####
 
@@ -52,6 +52,24 @@ sub _check_perl_critic
     my $pc = _get_perl_critic_object(@params);
 
     return $pc->critique($code_ref);
+}
+
+#####
+
+sub _get_description_from_violations
+{
+    my @violations = @_;
+
+    if (@violations) {
+        my $violation = shift @violations;
+        my $desc      = $violation->description();
+
+        if ($desc) {
+            return $desc;
+        }
+    }
+
+    return q{};
 }
 
 #####
@@ -359,6 +377,11 @@ END_OF_STRING
     my @violations = _check_perl_critic( \$code, $MCC_VALUE_1 );
 
     ok !!@violations, 'complex tinaray within PACKAGE block';
+
+    my $desc = _get_description_from_violations(@violations);
+
+    like $desc, qr/"PACKAGE"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio,
+        'violation description correct with PACKAGE';
 }
 
 #####
