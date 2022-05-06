@@ -65,7 +65,7 @@ sub violates
         return;    # no sub -> see SUB Perl::Critic::Policy::Subroutines::ProhibitExcessComplexity !
     }
 
-    my $desc = qq<"${block_keyword}" code-block has a high complexity score ($score)>;
+    my $desc = qq<"$block_keyword" code-block has a high complexity score ($score)>;
     return $self->violation( $desc, $EXPL, $elem );
 }
 

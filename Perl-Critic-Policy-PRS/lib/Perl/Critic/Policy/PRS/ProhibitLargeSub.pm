@@ -9,9 +9,11 @@ use warnings;
 
 our $VERSION = '0.01';
 
+use Readonly;
+
 use Perl::Critic::Utils qw{ :severities :data_conversion :classification };
 
-use parent 'Perl::Critic::Policy';
+use base 'Perl::Critic::Policy';
 
 Readonly::Scalar my $EXPL => q{Consider refactoring};
 

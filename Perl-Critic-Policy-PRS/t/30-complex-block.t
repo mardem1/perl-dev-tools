@@ -10,9 +10,10 @@ use warnings;
 our $VERSION = '0.01';
 
 use Readonly;
-use Test::More;
 use Perl::Critic;
 use Perl::Critic::Utils qw{ :severities };
+
+use Test::More;
 
 Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitBlockComplexity';
 
