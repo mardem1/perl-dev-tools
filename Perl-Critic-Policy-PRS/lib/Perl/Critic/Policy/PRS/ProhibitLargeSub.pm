@@ -30,6 +30,18 @@ sub applies_to
     return 'PPI::Statement::Sub';
 }
 
+sub supported_parameters
+{
+    return (
+        {   'name'            => 'statement_count_limit',
+            'description'     => 'The maximum statement count allowed.',
+            'default_string'  => '10',
+            'behavior'        => 'integer',
+            'integer_minimum' => 1,
+        },
+    );
+}
+
 sub violates
 {
     my ( $self, $elem, undef ) = @_;
@@ -42,7 +54,7 @@ sub violates
 
     my $statement_count = @{ $s };
 
-    if ( 10 > $statement_count ) {
+    if ( $statement_count <= $self->{ '_statement_count_limit' } ) {
         return;
     }
 
@@ -54,3 +66,5 @@ sub violates
 1;
 
 __END__
+
+#-----------------------------------------------------------------------------
