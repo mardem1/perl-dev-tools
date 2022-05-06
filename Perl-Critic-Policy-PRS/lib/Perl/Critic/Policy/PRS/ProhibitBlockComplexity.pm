@@ -44,7 +44,7 @@ sub supported_parameters
     return (
         {   'name'            => 'max_mccabe',
             'description'     => 'The maximum complexity score allowed.',
-            'default_string'  => '2',
+            'default_string'  => '10',
             'behavior'        => 'integer',
             'integer_minimum' => 1,
         },
