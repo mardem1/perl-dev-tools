@@ -17,8 +17,8 @@ use Test::More;
 
 Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitLargeBlock';
 
-Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_1 => 1;
-Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_4 => 4;
+Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_1  => 1;
+Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_4  => 4;
 Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_26 => 26;
 
 plan 'tests' => 43;
@@ -266,8 +266,7 @@ END_OF_STRING
 
     my $desc = _get_description_from_violations( @violations );
 
-    like $desc, qr/"for"\scode-block\s.*\sstatement\scount\s[(]\d+[)]/aaixmso,
-        'violation description correct with for';
+    like $desc, qr/"for"\scode-block\s.*\sstatement\scount\s[(]\d+[)]/aaixmso, 'violation description correct with for';
 }
 
 #####
@@ -347,8 +346,7 @@ END_OF_STRING
 
     my $desc = _get_description_from_violations( @violations );
 
-    like $desc, qr/"map"\scode-block\s.*\sstatement\scount\s[(]\d+[)]/aaixmso,
-        'violation description correct with map';
+    like $desc, qr/"map"\scode-block\s.*\sstatement\scount\s[(]\d+[)]/aaixmso, 'violation description correct with map';
 }
 
 #####
@@ -467,8 +465,7 @@ END_OF_STRING
 
     my $desc = _get_description_from_violations( @violations );
 
-    like $desc, qr/"END"\scode-block\s.*\sstatement\scount\s[(]\d+[)]/aaixmso,
-        'violation description correct with END';
+    like $desc, qr/"END"\scode-block\s.*\sstatement\scount\s[(]\d+[)]/aaixmso, 'violation description correct with END';
 }
 
 #####
