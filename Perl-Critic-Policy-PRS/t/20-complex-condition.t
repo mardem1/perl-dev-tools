@@ -44,7 +44,7 @@ sub _check_perl_critic
 {
     my ( $code_ref, $max_mccabe ) = @_;
 
-    my @params = ();
+    my @params;
     if ($max_mccabe) {
         @params = ( '-params' => { 'max_mccabe' => $max_mccabe } );
     }
