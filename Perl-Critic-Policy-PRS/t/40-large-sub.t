@@ -185,7 +185,7 @@ END_OF_STRING
 
     my $desc = _get_description_from_violations( @violations );
 
-    like $desc, qr/subroutine\s.*\sstatement\scount\s[(]26[)]/aaixmso, 'description correct count 26 not allowed';
+    like $desc, qr/subroutine\s"my_test"\s.*\sstatement\scount\s[(]26[)]/aaixmso, 'description correct count 26 not allowed';
 }
 
 #####
@@ -272,7 +272,7 @@ END_OF_STRING
 
     my $desc = _get_description_from_violations( @violations );
 
-    like $desc, qr/subroutine\s.*\sstatement\scount\s[(]2[)]/aaixmso, 'description correct count 2 not allowed';
+    like $desc, qr/subroutine\s"my_test"\s.*\sstatement\scount\s[(]2[)]/aaixmso, 'description correct count 2 not allowed';
 }
 
 #####
