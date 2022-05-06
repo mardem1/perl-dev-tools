@@ -19,9 +19,10 @@ Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitLargeSub
 
 Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_1  => 1;
 Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_2  => 2;
+Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_26 => 26;
 Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_99 => 99;
 
-plan 'tests' => 8;
+plan 'tests' => 9;
 
 #####
 
@@ -246,6 +247,59 @@ END_OF_STRING
     my @violations = _check_perl_critic( \$code, $STATEMENT_COUNT_LIMIT_VALUE_1 );
 
     ok @violations, 'violation with two statements in sub when 1 statements as config set';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        sub my_test {
+            # some first stuff
+            print "DEBUG: " . __LINE__;
+            my $x = 1;
+
+            $x+=1;
+            $x+=2;
+            $x+=3;
+            $x+=5;
+
+            # some other stuff
+            print "DEBUG: " . __LINE__;
+            my $y = 1;
+
+            $y+=1;
+            $y+=2;
+            $y+=3;
+            $y+=5;
+
+            $x *= $y;
+
+            # some more other stuff
+            print "DEBUG: " . __LINE__;
+            my $z = 1.1;
+
+            $z+=1.1;
+            $z+=2.2;
+            $z+=3.3;
+            $z+=5.5;
+
+            $x *= $z;
+
+            if(0==1) { # 2 statements if + 0==1
+                # not happen
+                print "DEBUG: " . __LINE__;
+                $x = 0;
+            }
+
+            # return something
+            print "DEBUG: " . __LINE__;
+            return $x;
+        }
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $STATEMENT_COUNT_LIMIT_VALUE_26 );
+
+    ok !@violations, 'no violation with some large sub when 26 allowed';
 }
 
 #####
