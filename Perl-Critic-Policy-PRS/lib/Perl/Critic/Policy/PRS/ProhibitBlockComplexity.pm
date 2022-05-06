@@ -125,3 +125,65 @@ sub violates
 1;
 
 __END__
+
+#-----------------------------------------------------------------------------
+
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+Perl::Critic::Policy::PRS::ProhibitBlockComplexity
+
+=head1 AFFILIATION
+
+This policy is part of L<Perl::Critic::Policy::PRS|Perl::Critic::Policy::PRS>.
+
+=head1 DESCRIPTION
+
+This Policy approximates the McCabe score within a code block "eg if() {...}".
+
+See L<http://en.wikipedia.org/wiki/Cyclomatic_complexity>
+
+It should help to find complex code block, which should be extracted
+into subs, to be more testable.
+
+eg. from
+
+  if( $a ) {
+    ...
+    ...
+    ...
+  }
+
+to
+
+  if( $a ) {
+    do_something();
+  }
+
+=head1 CONFIGURATION
+
+The maximum acceptable McCabe can be set with the C<max_mccabe>
+configuration item. Any block with a McCabe score higher than
+this number will generate a policy violation. The default is 10.
+
+An example section for a F<.perlcriticrc>:
+
+  [PRS::ProhibitBlockComplexity]
+  max_mccabe = 1
+
+=head1 AUTHOR
+
+mardem1 <>
+
+=head1 COPYRIGHT
+
+Copyright (c) 2022 All rights reserved.
+
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself. The full text of this license
+can be found in the LICENSE file included with this module.
+
+=cut
