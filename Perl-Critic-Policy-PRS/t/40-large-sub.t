@@ -21,15 +21,39 @@ plan 'tests' => 2;
 
 #####
 
+sub _get_perl_critic_object
 {
-    my $pc = Perl::Critic->new( '-profile' => 'NONE' , '-only' => 1 , '-severity' => 1 , '-force' => 0 );
+    my $pc = Perl::Critic->new(
+        '-profile'  => 'NONE',
+        '-only'     => 1,
+        '-severity' => 1,
+        '-force'    => 0
+    );
+
     $pc->add_policy( '-policy' => $POLICY_NAME );
 
+    return $pc;
+}
+
+#####
+
+sub _check_perl_critic
+{
+    my ( $code_ref ) = @_;
+
+    my $pc = _get_perl_critic_object();
+
+    return $pc->critique($code_ref);
+}
+
+#####
+
+{
     my $code = <<'END_OF_STRING';
         # empty code
 END_OF_STRING
 
-    my @violations = $pc->critique( \$code );
+    my @violations = _check_perl_critic( \$code );
 
     ok !@violations, 'no violation with empty code';
 }
@@ -37,16 +61,13 @@ END_OF_STRING
 #####
 
 {
-    my $pc = Perl::Critic->new( '-profile' => 'NONE' , '-only' => 1 , '-severity' => 1 , '-force' => 0 );
-    $pc->add_policy( '-policy' => $POLICY_NAME );
-
     my $code = <<'END_OF_STRING';
         sub my_test {
             # empty sub
         }
 END_OF_STRING
 
-    my @violations = $pc->critique( \$code );
+    my @violations = _check_perl_critic( \$code );
 
     ok !@violations, 'no violation with empty sub';
 }
