@@ -17,7 +17,22 @@ use Test::More;
 
 Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitLargeSub';
 
-plan 'tests' => 1;
+plan 'tests' => 2;
+
+#####
+
+{
+    my $pc = Perl::Critic->new( '-profile' => 'NONE' , '-only' => 1 , '-severity' => 1 , '-force' => 0 );
+    $pc->add_policy( '-policy' => $POLICY_NAME );
+
+    my $code = <<'END_OF_STRING';
+        # empty code
+END_OF_STRING
+
+    my @violations = $pc->critique( \$code );
+
+    ok !@violations, 'no violation with empty code';
+}
 
 #####
 
