@@ -11,7 +11,7 @@ our $VERSION = '0.01';
 
 use Test::More;
 
-plan 'tests' => 4;
+plan 'tests' => 5;
 
 BEGIN {
     my $error_txt = "Bail out!\n";
@@ -27,6 +27,9 @@ BEGIN {
 
     use_ok( 'Perl::Critic::Policy::PRS::ProhibitLargeSub' )
         || print $error_txt;
+
+    use_ok( 'Perl::Critic::Policy::PRS::ProhibitLargeBlock' )
+        || print $error_txt;
 }
 
 diag( "\nTesting Perl::Critic::Policy::PRS::ProhibitConditionComplexity $RPS::Util::VERSION, Perl $], $^X" );
@@ -41,4 +44,8 @@ diag(
 
 diag(
     "\nTesting Perl::Critic::Policy::PRS::ProhibitBlockComplexity $Perl::Critic::Policy::PRS::ProhibitLargeSub::VERSION, Perl $], $^X"
+);
+
+diag(
+    "\nTesting Perl::Critic::Policy::PRS::ProhibitBlockComplexity $Perl::Critic::Policy::PRS::ProhibitLargeBlock::VERSION, Perl $], $^X"
 );

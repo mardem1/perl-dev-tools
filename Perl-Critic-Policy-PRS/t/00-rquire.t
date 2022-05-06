@@ -12,7 +12,7 @@ our $VERSION = '0.01';
 use Test2::V0;
 use Test2::Tools::Exception qw/lives/;
 
-plan 'tests' => 4;
+plan 'tests' => 5;
 
 ok( lives {
         require RPS::Util;
@@ -31,6 +31,11 @@ ok( lives {
 
 ok( lives {
         require Perl::Critic::Policy::PRS::ProhibitLargeSub;
+    }
+);
+
+ok( lives {
+        require Perl::Critic::Policy::PRS::ProhibitLargeBlock;
     }
 );
 
