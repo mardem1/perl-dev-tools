@@ -10,6 +10,7 @@ theme = !freenode
 [-PRS::ProhibitConditionComplexity]
 [-PRS::ProhibitLargeBlock]
 [-PRS::ProhibitLargeSub]
+[-PRS::ProhibitManyConditionsInSub]
 
 [-CodeLayout::RequireTidyCode]
 perltidyrc = ".perltidyrc"
