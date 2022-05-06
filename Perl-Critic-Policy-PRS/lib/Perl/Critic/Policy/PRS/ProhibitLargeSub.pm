@@ -35,7 +35,7 @@ sub supported_parameters
     return (
         {   'name'            => 'statement_count_limit',
             'description'     => 'The maximum statement count allowed.',
-            'default_string'  => '10',
+            'default_string'  => '20',
             'behavior'        => 'integer',
             'integer_minimum' => 1,
         },
@@ -74,3 +74,44 @@ sub violates
 __END__
 
 #-----------------------------------------------------------------------------
+
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+Perl::Critic::Policy::PRS::ProhibitLargeSub
+
+=head1 AFFILIATION
+
+This policy is part of L<Perl::Critic::Policy::PRS|Perl::Critic::Policy::PRS>.
+
+=head1 DESCRIPTION
+
+This Policy counts the statements within a sub (more precise the PPI::Statement's)
+
+=head1 CONFIGURATION
+
+The maximum acceptable Statement-Count can be set with the C<statement_count_limit>
+configuration item. Any sub with a count higher than this number will generate a
+policy violation. The default is 20.
+
+An example section for a F<.perlcriticrc>:
+
+  [PRS::ProhibitLargeSub]
+  statement_count_limit = 1
+
+=head1 AUTHOR
+
+mardem1 <>
+
+=head1 COPYRIGHT
+
+Copyright (c) 2022 All rights reserved.
+
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself. The full text of this license
+can be found in the LICENSE file included with this module.
+
+=cut
