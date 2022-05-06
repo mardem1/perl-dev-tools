@@ -17,9 +17,10 @@ use Test::More;
 
 Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitLargeSub';
 
+Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_2  => 2;
 Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_99 => 99;
 
-plan 'tests' => 6;
+plan 'tests' => 7;
 
 #####
 
@@ -214,6 +215,21 @@ END_OF_STRING
     my @violations = _check_perl_critic( \$code, $STATEMENT_COUNT_LIMIT_VALUE_99 );
 
     ok !@violations, 'not violation with some large sub when 99 statements allowed via config';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        sub my_test {
+            my $x = 1;
+            return $x;
+        }
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $STATEMENT_COUNT_LIMIT_VALUE_2 );
+
+    ok !@violations, 'no violation with two statements in sub when 2 statements as config set';
 }
 
 #####
