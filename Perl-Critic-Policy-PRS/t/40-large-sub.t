@@ -17,7 +17,7 @@ use Test::More;
 
 Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitLargeSub';
 
-plan 'tests' => 4;
+plan 'tests' => 5;
 
 #####
 
@@ -99,6 +99,59 @@ END_OF_STRING
     my @violations = _check_perl_critic( \$code );
 
     ok !@violations, 'no violation with two statements in sub';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        sub my_test {
+            # some first stuff
+            print "DEBUG: " . __LINE__;
+            my $x = 1;
+
+            $x+=1;
+            $x+=2;
+            $x+=3;
+            $x+=5;
+
+            # some other stuff
+            print "DEBUG: " . __LINE__;
+            my $y = 1;
+
+            $y+=1;
+            $y+=2;
+            $y+=3;
+            $y+=5;
+
+            $x *= $y;
+
+            # some more other stuff
+            print "DEBUG: " . __LINE__;
+            my $z = 1.1;
+
+            $z+=1.1;
+            $z+=2.2;
+            $z+=3.3;
+            $z+=5.5;
+
+            $x *= $z;
+
+            if(0) {
+                # not happen
+                print "DEBUG: " . __LINE__;
+                $x = 0;
+            }
+
+            # return something
+            print "DEBUG: " . __LINE__;
+            return $x;
+        }
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code );
+
+    ok @violations, 'violation with some large sub';
 }
 
 #####
