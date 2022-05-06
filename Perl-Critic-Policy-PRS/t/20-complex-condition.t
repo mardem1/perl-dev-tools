@@ -30,7 +30,7 @@ sub _get_perl_critic_object
 
     my $pc = Perl::Critic->new(
         '-profile'  => 'NONE',
-        '-only '    => 1,
+        '-only'     => 1,
         '-severity' => 1,
         '-force'    => 0
     );
@@ -143,7 +143,7 @@ END_OF_STRING
 
     my $desc = _get_description_from_violations(@violations);
 
-    like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio, 'violation description correct with if';
+    like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso, 'violation description correct with if';
 }
 
 #####
@@ -175,7 +175,8 @@ END_OF_STRING
 
     my $desc = _get_description_from_violations(@violations);
 
-    like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]3[)]/xmsio, 'description correct mcc value 3 not allowd';
+    like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]3[)]/aaixmso,
+        'description correct mcc value 3 not allowd';
 }
 
 #####
@@ -207,7 +208,7 @@ END_OF_STRING
 
     my $desc = _get_description_from_violations(@violations);
 
-    like $desc, qr/"unless"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio,
+    like $desc, qr/"unless"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with unless';
 }
 
@@ -226,7 +227,7 @@ END_OF_STRING
 
     my $desc = _get_description_from_violations(@violations);
 
-    like $desc, qr/"while"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio,
+    like $desc, qr/"while"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with while';
 }
 
@@ -245,7 +246,7 @@ END_OF_STRING
 
     my $desc = _get_description_from_violations(@violations);
 
-    like $desc, qr/"until"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio,
+    like $desc, qr/"until"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with until';
 }
 
@@ -264,7 +265,7 @@ END_OF_STRING
 
     my $desc = _get_description_from_violations(@violations);
 
-    like $desc, qr/"while"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio,
+    like $desc, qr/"while"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with do-while';
 }
 
@@ -283,7 +284,7 @@ END_OF_STRING
 
     my $desc = _get_description_from_violations(@violations);
 
-    like $desc, qr/"for"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio, 'violation description correct with for';
+    like $desc, qr/"for"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso, 'violation description correct with for';
 }
 
 #####
@@ -304,7 +305,7 @@ END_OF_STRING
 
     my $desc = _get_description_from_violations(@violations);
 
-    like $desc, qr/"elsif"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio,
+    like $desc, qr/"elsif"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with elsif';
 }
 
@@ -323,7 +324,7 @@ END_OF_STRING
 
     my $desc = _get_description_from_violations(@violations);
 
-    like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio,
+    like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with if which includes sub-blocks';
 }
 
@@ -352,7 +353,7 @@ END_OF_STRING
 
     my $desc = _get_description_from_violations(@violations);
 
-    like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/xmsio,
+    like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with posix-if which includes sub-blocks';
 }
 
