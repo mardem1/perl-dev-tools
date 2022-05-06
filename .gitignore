@@ -37,6 +37,7 @@ inc/
 /notes.txt
 /test.bat
 /tidyup.bat
+/run-perl-critic.bat
 /.project
 /.includepath
 /.vscode/
