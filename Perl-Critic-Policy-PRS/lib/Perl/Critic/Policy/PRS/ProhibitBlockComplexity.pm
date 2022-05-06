@@ -1,5 +1,7 @@
 package Perl::Critic::Policy::PRS::ProhibitBlockComplexity;
 
+use utf8;
+
 use 5.010;
 
 use strict;
