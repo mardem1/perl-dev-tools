@@ -100,7 +100,7 @@ sub _search_for_block_keyword
 
 sub violates
 {
-    my ( $self, $elem, $doc ) = @_;
+    my ( $self, $elem, undef ) = @_;
 
     my $score = calculate_mccabe_of_main($elem);
     if ( $score <= $self->{'_max_mccabe'} ) {

@@ -15,7 +15,6 @@ use Perl::Critic::Utils qw{ :severities };
 Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitBlockComplexity';
 
 Readonly::Scalar my $MCC_VALUE_1 => 1;
-Readonly::Scalar my $MCC_VALUE_2 => 2;
 Readonly::Scalar my $MCC_VALUE_4 => 4;
 
 plan 'tests' => 40;
