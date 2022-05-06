@@ -22,7 +22,7 @@ Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_2  => 2;
 Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_26 => 26;
 Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_99 => 99;
 
-plan 'tests' => 11;
+plan 'tests' => 12;
 
 #####
 
@@ -326,6 +326,21 @@ END_OF_STRING
     my @violations = _check_perl_critic( \$code, $STATEMENT_COUNT_LIMIT_VALUE_26 );
 
     ok !@violations, 'no violation with some large sub when 26 allowed';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        my $my_test_sub = sub {
+            my $x = 1;
+            return $x;
+        }
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code, $STATEMENT_COUNT_LIMIT_VALUE_1 );
+
+    ok !@violations, 'no violation for anonymous sub';
 }
 
 #####
