@@ -14,7 +14,7 @@ use Readonly;
 use Perl::Critic::Utils qw{ :severities :data_conversion :classification };
 use Perl::Critic::Utils::McCabe qw{ calculate_mccabe_of_main };
 
-use RPS::Util qw( search_for_block_keyword);
+use RPS::Util qw( search_for_block_keyword );
 
 use base 'Perl::Critic::Policy';
 

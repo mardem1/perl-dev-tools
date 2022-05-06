@@ -10,7 +10,7 @@ use warnings;
 our $VERSION = '0.01';
 
 use Readonly;
-use List::Util qw(first);
+use List::Util qw( first );
 
 use Perl::Critic::Utils qw{ is_hash_key };
 
@@ -18,8 +18,16 @@ use base 'Exporter';
 
 our @EXPORT_OK = qw( search_for_block_keyword );
 
-Readonly::Array my @BLOCK_SEARCH_KEYWORD =>
-    qw(SUB IF UNLESS WHILE UNTIL DO FOR FOREACH EVAL SORT MAP GREP BEGIN UNITCHECK CHECK INIT END PACKAGE);
+Readonly::Array my @BLOCK_SEARCH_KEYWORD => qw(
+    SUB
+    IF ELSIF UNLESS
+    WHILE UNTIL
+    DO
+    FOR FOREACH
+    EVAL
+    SORT MAP GREP
+    BEGIN UNITCHECK CHECK INIT END
+    PACKAGE );
 
 Readonly::Scalar my $MAX_KEYWORD_LOOKUP_DEPTH => 10;
 
