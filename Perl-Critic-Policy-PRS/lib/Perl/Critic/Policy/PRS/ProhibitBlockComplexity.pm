@@ -40,11 +40,11 @@ sub applies_to
 sub supported_parameters
 {
     return (
-        {   name            => 'max_mccabe',
-            description     => 'The maximum complexity score allowed.',
-            default_string  => '2',
-            behavior        => 'integer',
-            integer_minimum => 1,
+        {   'name'            => 'max_mccabe',
+            'description'     => 'The maximum complexity score allowed.',
+            'default_string'  => '2',
+            'behavior'        => 'integer',
+            'integer_minimum' => 1,
         },
     );
 }
@@ -103,7 +103,7 @@ sub violates
     my ( $self, $elem, $doc ) = @_;
 
     my $score = calculate_mccabe_of_main($elem);
-    if ( $score <= $self->{_max_mccabe} ) {
+    if ( $score <= $self->{'_max_mccabe'} ) {
         return;
     }
 

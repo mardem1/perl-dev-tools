@@ -9,7 +9,7 @@ our $VERSION = '0.01';
 
 use Test::More;
 
-plan tests => 2;
+plan 'tests' => 2;
 
 BEGIN {
     my $error_txt = "Bail out!\n";

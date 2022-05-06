@@ -18,7 +18,7 @@ Readonly::Scalar my $MCC_VALUE_1 => 1;
 Readonly::Scalar my $MCC_VALUE_2 => 2;
 Readonly::Scalar my $MCC_VALUE_4 => 4;
 
-plan tests => 28;
+plan 'tests' => 28;
 
 #####
 
@@ -27,13 +27,13 @@ sub _get_perl_critic_object
     my @configs = @_;
 
     my $pc = Perl::Critic->new(
-        -profile  => 'NONE',
-        -only     => 1,
-        -severity => 1,
-        -force    => 0
+        '-profile'  => 'NONE',
+        '-only '    => 1,
+        '-severity' => 1,
+        '-force'    => 0
     );
 
-    $pc->add_policy( -policy => $POLICY_NAME, @configs );
+    $pc->add_policy( '-policy' => $POLICY_NAME, @configs );
 
     return $pc;
 }
@@ -46,7 +46,7 @@ sub _check_perl_critic
 
     my @params = ();
     if ($max_mccabe) {
-        @params = ( -params => { max_mccabe => $max_mccabe } );
+        @params = ( '-params' => { 'max_mccabe' => $max_mccabe } );
     }
 
     my $pc = _get_perl_critic_object(@params);
