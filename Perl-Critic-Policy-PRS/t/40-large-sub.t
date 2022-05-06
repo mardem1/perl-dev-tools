@@ -22,7 +22,7 @@ Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_2  => 2;
 Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_26 => 26;
 Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_99 => 99;
 
-plan 'tests' => 10;
+plan 'tests' => 11;
 
 #####
 
@@ -181,7 +181,11 @@ END_OF_STRING
 
     my @violations = _check_perl_critic( \$code );
 
-    ok @violations, 'violation with some large sub';
+    ok !!@violations, 'violation with some large sub';
+
+    my $desc = _get_description_from_violations( @violations );
+
+    like $desc, qr/subroutine\s.*\sstatement\scount\s[(]26[)]/aaixmso, 'description correct count 26 not allowed';
 }
 
 #####
