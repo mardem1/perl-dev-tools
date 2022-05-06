@@ -17,6 +17,7 @@
 -wbb="% + - * / x != == >= <= =~ !~ < > | & **= += *= &= <<= &&= -=/= |= >>= ||= .= %= ^= x=" # Break before all operators
 
 # personal preference
+
 -pt=0
 -sbt=0
 -bt=0
@@ -27,5 +28,7 @@
 -sbl # opening sub brace on new line
 -asbl # opening sub anonymous brace on new line
 -xci # extended-continuation-indentation
+
 -l=120 # Max line width is 120 cols
+
 -b # inplace changes
