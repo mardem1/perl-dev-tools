@@ -53,12 +53,18 @@ sub violates
     }
 
     my $statement_count = @{ $s };
-
     if ( $statement_count <= $self->{ '_statement_count_limit' } ) {
         return;
     }
 
-    my $desc = qq<Subroutine with high statement count ($statement_count)>;
+    my $desc;
+    if ( my $name = $elem->name() ) {
+        $desc = qq<Subroutine "$name" with high statement count ($statement_count)>;
+    }
+    else {
+        # never the case becaus no PPI::Statement::Sub
+        $desc = qq<Anonymous subroutine with high statement count ($statement_count)>;
+    }
 
     return $self->violation( $desc, $EXPL, $elem );
 }
