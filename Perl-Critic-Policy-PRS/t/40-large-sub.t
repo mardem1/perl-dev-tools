@@ -17,7 +17,7 @@ use Test::More;
 
 Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitLargeSub';
 
-plan 'tests' => 3;
+plan 'tests' => 4;
 
 #####
 
@@ -84,6 +84,21 @@ END_OF_STRING
     my @violations = _check_perl_critic( \$code );
 
     ok !@violations, 'no violation with single return sub';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        sub my_test {
+            my $x = 1;
+            return $x;
+        }
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code );
+
+    ok !@violations, 'no violation with two statements in sub';
 }
 
 #####
