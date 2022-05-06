@@ -22,7 +22,7 @@ Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_2  => 2;
 Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_26 => 26;
 Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_99 => 99;
 
-plan 'tests' => 9;
+plan 'tests' => 10;
 
 #####
 
@@ -56,6 +56,24 @@ sub _check_perl_critic
     my $pc = _get_perl_critic_object( @params );
 
     return $pc->critique( $code_ref );
+}
+
+#####
+
+sub _get_description_from_violations
+{
+    my @violations = @_;
+
+    if ( @violations ) {
+        my $violation = shift @violations;
+        my $desc      = $violation->description();
+
+        if ( $desc ) {
+            return $desc;
+        }
+    }
+
+    return q{};
 }
 
 #####
@@ -246,7 +264,11 @@ END_OF_STRING
 
     my @violations = _check_perl_critic( \$code, $STATEMENT_COUNT_LIMIT_VALUE_1 );
 
-    ok @violations, 'violation with two statements in sub when 1 statements as config set';
+    ok !!@violations, 'violation with two statements in sub when 1 statements as config set';
+
+    my $desc = _get_description_from_violations( @violations );
+
+    like $desc, qr/subroutine\s.*\sstatement\scount\s[(]2[)]/aaixmso, 'description correct count 2 not allowed';
 }
 
 #####
