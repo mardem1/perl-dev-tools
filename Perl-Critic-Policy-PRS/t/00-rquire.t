@@ -12,7 +12,12 @@ our $VERSION = '0.01';
 use Test2::V0;
 use Test2::Tools::Exception qw/lives/;
 
-plan 'tests' => 2;
+plan 'tests' => 3;
+
+ok( lives {
+        require RPS::Util;
+    }
+);
 
 ok( lives {
         require Perl::Critic::Policy::PRS::ProhibitConditionComplexity;

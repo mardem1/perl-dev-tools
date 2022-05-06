@@ -11,10 +11,13 @@ our $VERSION = '0.01';
 
 use Test::More;
 
-plan 'tests' => 2;
+plan 'tests' => 3;
 
 BEGIN {
     my $error_txt = "Bail out!\n";
+
+    use_ok('RPS::Util')
+        || print $error_txt;
 
     use_ok('Perl::Critic::Policy::PRS::ProhibitConditionComplexity')
         || print $error_txt;
