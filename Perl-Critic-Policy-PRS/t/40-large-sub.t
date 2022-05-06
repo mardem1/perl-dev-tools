@@ -43,7 +43,7 @@ sub _check_perl_critic
 
     my $pc = _get_perl_critic_object();
 
-    return $pc->critique($code_ref);
+    return $pc->critique( $code_ref );
 }
 
 #####

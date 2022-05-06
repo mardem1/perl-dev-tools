@@ -33,7 +33,7 @@ Readonly::Scalar my $MAX_KEYWORD_LOOKUP_DEPTH => 10;
 
 sub _keyword_in_searchlist
 {
-    my ($keyword) = @_;
+    my ( $keyword ) = @_;
 
     $keyword = uc $keyword;
 
@@ -44,7 +44,7 @@ sub _keyword_in_searchlist
 
 sub search_for_block_keyword
 {
-    my ($elem) = @_;
+    my ( $elem ) = @_;
 
     if ( !ref $elem ) {
         last;
@@ -66,12 +66,12 @@ sub search_for_block_keyword
             last;
         }
 
-        if ( !is_hash_key($sprevious) ) {
+        if ( !is_hash_key( $sprevious ) ) {
             $word_search = $sprevious;
 
             my $content_search = $word_search->content;
 
-            $block_keyword = _keyword_in_searchlist($content_search);
+            $block_keyword = _keyword_in_searchlist( $content_search );
         }
 
         $i++;

@@ -51,12 +51,12 @@ sub violates
 {
     my ( $self, $elem, undef ) = @_;
 
-    my $score = calculate_mccabe_of_main($elem);
-    if ( $score <= $self->{'_max_mccabe'} ) {
+    my $score = calculate_mccabe_of_main( $elem );
+    if ( $score <= $self->{ '_max_mccabe' } ) {
         return;
     }
 
-    my $block_keyword = search_for_block_keyword($elem);
+    my $block_keyword = search_for_block_keyword( $elem );
     if ( !$block_keyword ) {
         $block_keyword = 'no-keyword-found';
     }

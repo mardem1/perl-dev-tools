@@ -47,13 +47,13 @@ sub _check_perl_critic
     my ( $code_ref, $max_mccabe ) = @_;
 
     my @params;
-    if ($max_mccabe) {
+    if ( $max_mccabe ) {
         @params = ( '-params' => { 'max_mccabe' => $max_mccabe } );
     }
 
-    my $pc = _get_perl_critic_object(@params);
+    my $pc = _get_perl_critic_object( @params );
 
-    return $pc->critique($code_ref);
+    return $pc->critique( $code_ref );
 }
 
 #####
@@ -62,11 +62,11 @@ sub _get_description_from_violations
 {
     my @violations = @_;
 
-    if (@violations) {
+    if ( @violations ) {
         my $violation = shift @violations;
         my $desc      = $violation->description();
 
-        if ($desc) {
+        if ( $desc ) {
             return $desc;
         }
     }
@@ -141,7 +141,7 @@ END_OF_STRING
 
     ok @violations, 'violation with logical and';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso, 'violation description correct with if';
 }
@@ -173,7 +173,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex if mcc value reached';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]3[)]/aaixmso,
         'description correct mcc value 3 not allowd';
@@ -206,7 +206,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex unless mcc value reached';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"unless"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with unless';
@@ -225,7 +225,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex while mcc value reached';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"while"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with while';
@@ -244,7 +244,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex until mcc value reached';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"until"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with until';
@@ -263,7 +263,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex do-while mcc value reached';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"while"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with do-while';
@@ -282,7 +282,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex for mcc value reached';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"for"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso, 'violation description correct with for';
 }
@@ -303,7 +303,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex elsif mcc value reached';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"elsif"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with elsif';
@@ -322,7 +322,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex if with sub-condition-blockes mcc value reached';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with if which includes sub-blocks';
@@ -351,7 +351,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex posix-if with sub-condition-blockes mcc value reached';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"if"\scondition\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with posix-if which includes sub-blocks';

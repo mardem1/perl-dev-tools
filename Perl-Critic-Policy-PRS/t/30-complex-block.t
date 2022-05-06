@@ -46,13 +46,13 @@ sub _check_perl_critic
     my ( $code_ref, $max_mccabe ) = @_;
 
     my @params;
-    if ($max_mccabe) {
+    if ( $max_mccabe ) {
         @params = ( '-params' => { 'max_mccabe' => $max_mccabe } );
     }
 
-    my $pc = _get_perl_critic_object(@params);
+    my $pc = _get_perl_critic_object( @params );
 
-    return $pc->critique($code_ref);
+    return $pc->critique( $code_ref );
 }
 
 #####
@@ -61,11 +61,11 @@ sub _get_description_from_violations
 {
     my @violations = @_;
 
-    if (@violations) {
+    if ( @violations ) {
         my $violation = shift @violations;
         my $desc      = $violation->description();
 
-        if ($desc) {
+        if ( $desc ) {
             return $desc;
         }
     }
@@ -158,7 +158,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex tinaray within if block';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"if"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso, 'violation description correct with if';
 }
@@ -176,7 +176,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex tinaray within while block';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"while"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with while';
@@ -195,7 +195,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex tinaray within unless block';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"unless"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with unless';
@@ -214,7 +214,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex tinaray within until block';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"until"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with until';
@@ -233,7 +233,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex tinaray within do block';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"do"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with do-while';
@@ -252,7 +252,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex tinaray within c-for-loop block';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"for"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with for';
@@ -271,7 +271,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex tinaray within foreach block';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"foreach"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with foreach';
@@ -290,7 +290,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex tinaray within eval block';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"eval"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with eval';
@@ -308,7 +308,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex sort block';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"sort"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with sort';
@@ -326,7 +326,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex map block';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"map"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with map';
@@ -344,7 +344,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex grep block';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"grep"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with grep';
@@ -363,7 +363,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex tinaray within BEGIN block';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"BEGIN"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with BEGIN';
@@ -382,7 +382,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex tinaray within UNITCHECK block';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"UNITCHECK"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with UNITCHECK';
@@ -401,7 +401,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex tinaray within CHECK block';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"CHECK"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with CHECK';
@@ -420,7 +420,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex tinaray within INIT block';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"INIT"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with INIT';
@@ -439,7 +439,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex tinaray within END block';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"END"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with END';
@@ -458,7 +458,7 @@ END_OF_STRING
 
     ok !!@violations, 'complex tinaray within PACKAGE block';
 
-    my $desc = _get_description_from_violations(@violations);
+    my $desc = _get_description_from_violations( @violations );
 
     like $desc, qr/"PACKAGE"\scode-block\s.*\scomplexity\sscore\s[(]\d+[)]/aaixmso,
         'violation description correct with PACKAGE';

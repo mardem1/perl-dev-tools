@@ -34,13 +34,13 @@ sub violates
 {
     my ( $self, $elem, undef ) = @_;
 
-    my $s = $elem->find('PPI::Statement');
+    my $s = $elem->find( 'PPI::Statement' );
 
     if ( !$s ) {
         return;
     }
 
-    my $statement_count = @{$s};
+    my $statement_count = @{ $s };
 
     if ( 10 > $statement_count ) {
         return;
