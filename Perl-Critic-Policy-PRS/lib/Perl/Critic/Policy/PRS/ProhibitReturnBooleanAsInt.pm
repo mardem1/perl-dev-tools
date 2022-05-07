@@ -11,8 +11,19 @@ our $VERSION = '0.01';
 
 use base 'Perl::Critic::Policy';
 
+sub applies_to
+{
+    return 'PPI::Token::Word';
+}
+
 sub violates
 {
+    my ( $self, $elem, undef ) = @_;
+
+    if ( 'return' eq $elem->content() ) {
+        return $self->violation( 'return desc', 'return expl', $elem );
+    }
+
     return;
 }
 

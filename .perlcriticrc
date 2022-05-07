@@ -11,6 +11,7 @@ theme = !freenode
 [-PRS::ProhibitLargeBlock]
 [-PRS::ProhibitLargeSub]
 [-PRS::ProhibitManyConditionsInSub]
+[-PRS::ProhibitReturnBooleanAsInt]
 
 [-CodeLayout::RequireTidyCode]
 perltidyrc = ".perltidyrc"
