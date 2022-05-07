@@ -16,7 +16,7 @@ Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitReturnBo
 
 use Test::More;
 
-plan 'tests' => 3;
+plan 'tests' => 4;
 
 #####
 
@@ -57,6 +57,20 @@ END_OF_STRING
 
     my @violations = $pc->critique( \$code );
     ok !!@violations, 'return found';
+}
+
+#####
+
+{
+    my $pc = Perl::Critic->new( '-profile' => 'NONE', '-only' => 1, '-severity' => 1, '-force' => 0 );
+    $pc->add_policy( '-policy' => $POLICY_NAME, '-params' => {} );
+
+    my $code = <<'END_OF_STRING';
+        my %hash = ( 'return' => 1 );
+END_OF_STRING
+
+    my @violations = $pc->critique( \$code );
+    ok !@violations, 'return as hash-string-key not found';
 }
 
 #####
