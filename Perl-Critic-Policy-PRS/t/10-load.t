@@ -33,6 +33,9 @@ BEGIN {
 
     use_ok( 'Perl::Critic::Policy::PRS::ProhibitManyConditionsInSub' )
         || print $error_txt;
+
+    use_ok( 'Perl::Critic::Policy::PRS::ProhibitReturnBooleanAsInt' )
+        || print $error_txt;
 }
 
 diag( "\nTesting Perl::Critic::Policy::PRS::ProhibitConditionComplexity $RPS::Util::VERSION, Perl $], $^X" );
@@ -55,4 +58,8 @@ diag(
 
 diag(
     "\nTesting Perl::Critic::Policy::PRS::ProhibitBlockComplexity $Perl::Critic::Policy::PRS::ProhibitManyConditionsInSub::VERSION, Perl $], $^X"
+);
+
+diag(
+    "\nTesting Perl::Critic::Policy::PRS::ProhibitBlockComplexity $Perl::Critic::Policy::PRS::ProhibitReturnBooleanAsInt::VERSION, Perl $], $^X"
 );

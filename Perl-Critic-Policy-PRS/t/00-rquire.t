@@ -12,7 +12,7 @@ our $VERSION = '0.01';
 use Test2::V0;
 use Test2::Tools::Exception qw/lives/;
 
-plan 'tests' => 6;
+plan 'tests' => 7;
 
 ok( lives {
         require RPS::Util;
@@ -41,6 +41,11 @@ ok( lives {
 
 ok( lives {
         require Perl::Critic::Policy::PRS::ProhibitManyConditionsInSub;
+    }
+);
+
+ok( lives {
+        require Perl::Critic::Policy::PRS::ProhibitReturnBooleanAsInt;
     }
 );
 
