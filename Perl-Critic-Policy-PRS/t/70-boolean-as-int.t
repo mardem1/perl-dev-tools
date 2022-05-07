@@ -52,20 +52,6 @@ END_OF_STRING
     $pc->add_policy( '-policy' => $POLICY_NAME, '-params' => {} );
 
     my $code = <<'END_OF_STRING';
-        return;
-END_OF_STRING
-
-    my @violations = $pc->critique( \$code );
-    ok !!@violations, 'return found';
-}
-
-#####
-
-{
-    my $pc = Perl::Critic->new( '-profile' => 'NONE', '-only' => 1, '-severity' => 1, '-force' => 0 );
-    $pc->add_policy( '-policy' => $POLICY_NAME, '-params' => {} );
-
-    my $code = <<'END_OF_STRING';
         my %hash = ( 'return' => 1 );
 END_OF_STRING
 
@@ -89,4 +75,17 @@ END_OF_STRING
 
 #####
 
+{
+    my $pc = Perl::Critic->new( '-profile' => 'NONE', '-only' => 1, '-severity' => 1, '-force' => 0 );
+    $pc->add_policy( '-policy' => $POLICY_NAME, '-params' => {} );
+
+    my $code = <<'END_OF_STRING';
+        return;
+END_OF_STRING
+
+    my @violations = $pc->critique( \$code );
+    ok !@violations, 'return; alone should not violate';
+}
+
+#####
 done_testing();
