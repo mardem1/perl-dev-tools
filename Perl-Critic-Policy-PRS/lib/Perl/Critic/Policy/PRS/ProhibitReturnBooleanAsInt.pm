@@ -9,6 +9,8 @@ use warnings;
 
 our $VERSION = '0.01';
 
+use Perl::Critic::Utils qw( is_hash_key );
+
 use base 'Perl::Critic::Policy';
 
 sub applies_to
@@ -20,7 +22,7 @@ sub violates
 {
     my ( $self, $elem, undef ) = @_;
 
-    if ( 'return' eq $elem->content() ) {
+    if ( 'return' eq $elem->content() && !is_hash_key( $elem ) ) {
         return $self->violation( 'return desc', 'return expl', $elem );
     }
 
