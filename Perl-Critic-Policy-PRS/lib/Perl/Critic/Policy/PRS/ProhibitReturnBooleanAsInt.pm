@@ -10,7 +10,7 @@ use warnings;
 our $VERSION = '0.01';
 
 use Readonly;
-use Perl::Critic::Utils qw( is_hash_key $SEVERITY_MEDIUM $SCOLON );
+use Perl::Critic::Utils qw( is_hash_key $SEVERITY_MEDIUM $SCOLON $TRUE $FALSE );
 
 use base 'Perl::Critic::Policy';
 
@@ -39,6 +39,23 @@ sub supported_parameters
     return;
 }
 
+sub _simplified_violates_check
+{
+    my ( $elem ) = @_;
+
+    my $return_line_content = $elem->content();
+    if ( !$return_line_content ) {
+        return $FALSE;
+    }
+
+    # fast regex violation check - eg. "return 1"; - "return (1); # comment"
+    if ( $return_line_content =~ /^\s*return\s*[(]?\s*[01]\s*[)]?\s*;\s*/io ) {
+        return $TRUE;
+    }
+
+    return $FALSE;
+}
+
 sub violates
 {
     my ( $self, $elem, undef ) = @_;
@@ -52,13 +69,7 @@ sub violates
         return;
     }
 
-    my $return_line_content = $elem->content();
-    if ( !$return_line_content ) {
-        return;
-    }
-
-    # fast regex violation check - eg. "return 1"; - "return (1); # comment"
-    if ( $return_line_content =~ /^\s*return\s*[(]?\s*[01]\s*[)]?\s*;\s*/io ) {
+    if ( _simplified_violates_check( $elem ) ) {
         return $self->violation( $DESC, $EXPL, $elem );
     }
 
