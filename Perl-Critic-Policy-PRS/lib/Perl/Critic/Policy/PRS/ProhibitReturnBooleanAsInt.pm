@@ -58,8 +58,12 @@ sub violates
     }
 
     # fast regex violation check - eg. "return 1"; - "return (1); # comment" - "return 1 if ..."
-    if ( $return_line_content !~ m/^\s*return\s*[(]?\s*[01]\s*[)]?\s*(?:(?:if|unless)\s*[(]?\s*.+\s*[)]?\s*)?\s*;/aaixmso )
-    {
+    my $return        = q{return};
+    my $value         = q{[(]?\s*[01]\s*[)]?};
+    my $opt_condition = q{(?:(?:if|unless)\s*[(]?\s*.+\s*[)]?\s*)?};
+    my $regex         = qr/^\s*$return\s*$value\s*$opt_condition\s*;/aaixmso;
+
+    if ( $return_line_content !~ $regex ) {
         return;
     }
 
