@@ -11,14 +11,15 @@ our $VERSION = '0.01';
 
 use Path::This qw( $THISDIR );
 use Test::More;
+use English qw( -no_match_vars );
 
-local $@ = undef;
+local $EVAL_ERROR = undef;
 my $eval_ok = eval {
     use Test::Pod 1.00;
     return 'ok';
 };
 
-if ( $@ || 'ok' ne $eval_ok ) {
+if ( $EVAL_ERROR || 'ok' ne $eval_ok ) {
     plan 'skip_all' => 'Test::Pod 1.00 required for testing POD';
 }
 
