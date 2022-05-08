@@ -63,3 +63,7 @@ diag(
 diag(
     "\nTesting Perl::Critic::Policy::PRS::ProhibitBlockComplexity $Perl::Critic::Policy::PRS::ProhibitReturnBooleanAsInt::VERSION, Perl $], $^X"
 );
+
+__END__
+
+#-----------------------------------------------------------------------------

@@ -90,9 +90,9 @@ This policy is part of L<Perl::Critic::Policy::PRS|Perl::Critic::Policy::PRS>.
 
 =head1 DESCRIPTION
 
-This Policy searches for <"return 1"> and <"return 0"> statements,
+This Policy searches for C<return 1> and C<return 0> statements,
 which are mainly used for boolean meaning, but are less expressiv
-than direct use of some boolean eg. <"return $true">.
+than direct use of some boolean eg. C<return $true>.
 
 There are many different modules available for true, false - use it!
 
