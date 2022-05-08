@@ -49,7 +49,7 @@ sub _simplified_violates_check
     }
 
     # fast regex violation check - eg. "return 1"; - "return (1); # comment"
-    if ( $return_line_content =~ /^\s*return\s*[(]?\s*[01]\s*[)]?\s*;\s*/io ) {
+    if ( $return_line_content =~ /^\s*return\s*[(]?\s*[01]{1}\s*[)]?\s*;\s*/io ) {
         return $TRUE;
     }
 

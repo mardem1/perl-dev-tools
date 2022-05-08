@@ -16,7 +16,7 @@ Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitReturnBo
 
 use Test::More;
 
-plan 'tests' => 13;
+plan 'tests' => 15;
 
 #####
 
@@ -185,6 +185,28 @@ END_OF_STRING
 
     my @violations = _check_perl_critic( \$code );
     ok !@violations, 'return (2); should not violate';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        return (10);
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code );
+    ok !@violations, 'return (10); should not violate';
+}
+
+#####
+
+{
+    my $code = <<'END_OF_STRING';
+        return (01);
+END_OF_STRING
+
+    my @violations = _check_perl_critic( \$code );
+    ok !@violations, 'return (01); should not violate - mean something?';
 }
 
 #####
