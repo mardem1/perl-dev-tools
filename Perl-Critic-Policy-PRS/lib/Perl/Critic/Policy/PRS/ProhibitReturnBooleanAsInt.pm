@@ -35,7 +35,7 @@ sub violates
         return;
     }
 
-    if ( $sib->isa( 'PPI::Structure::List' ) && '0' ne $sib->content() ) {
+    if ( $sib->isa( 'PPI::Structure::List' ) && '0' ne $sib->content() && '1' ne $sib->content() ) {
         return;
     }
     elsif ( $sib->isa( 'PPI::Token::Structure' ) && $SEMICOLON eq $sib->content() ) {
