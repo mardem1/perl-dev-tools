@@ -43,6 +43,12 @@ sub violates
         return;
     }
 
+    my $sib2 = $sib->snext_sibling();
+
+    if( $sib2 && $sib2->isa('PPI::Token::Operator')  ) {
+        return;
+    }
+
     return $self->violation( 'return desc', 'return expl', $elem );
 }
 
