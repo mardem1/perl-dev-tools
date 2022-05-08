@@ -34,13 +34,12 @@ inc/
 /pm_to_blib
 /*.zip
 
-/notes.txt
-/test.bat
-/tidyup.bat
-/run-perl-critic.bat
 /.project
 /.includepath
 /.vscode/
 /.idea/
 **/*.bak
 **/*.tdy
+
+/notes.txt
+/run-*.bat
