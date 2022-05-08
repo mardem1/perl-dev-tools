@@ -54,6 +54,3 @@ max_mccabe = 9
 
 [Subroutines::ProhibitExcessComplexity]
 max_mccabe = 9
-
-[Variables::ProhibitPunctuationVars]
-allow = $@ $!
