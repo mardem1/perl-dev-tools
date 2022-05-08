@@ -56,6 +56,37 @@ sub _simplified_violates_check
     return $FALSE;
 }
 
+sub _detailed_violates_check
+{
+    my ( $elem ) = @_;
+
+    my $sib2 = $elem->snext_sibling();
+    if ( !$sib2 ) {
+        return $FALSE;
+    }
+
+    if ( $sib2->isa( 'PPI::Structure::List' ) ) {
+        if ( $sib2->content() !~ m/^[(][01][)]$/aaixmso ) {
+            return $FALSE;
+        }
+    }
+    elsif ( $sib2->isa( 'PPI::Token::Structure' ) && $SCOLON eq $sib2->content() ) {
+        return $FALSE;
+    }
+    elsif ( $sib2->isa( 'PPI::Token::Number' ) && '0' ne $sib2->content() && '1' ne $sib2->content() ) {
+        return $FALSE;
+    }
+    else {
+        my $sib3 = $sib2->snext_sibling();
+
+        if ( $sib3 && $sib3->isa( 'PPI::Token::Operator' ) ) {
+            return $FALSE;
+        }
+    }
+
+    return $TRUE;
+}
+
 sub violates
 {
     my ( $self, $elem, undef ) = @_;
@@ -73,33 +104,11 @@ sub violates
         return $self->violation( $DESC, $EXPL, $elem );
     }
 
-    my $sib2 = $sib1->snext_sibling();
-    if ( !$sib2 ) {
-        return;
+    if ( _detailed_violates_check( $sib1 ) ) {
+        return $self->violation( $DESC, $EXPL, $elem );
     }
 
-    if ( $sib2->isa( 'PPI::Structure::List' ) ) {
-
-        if ( $sib2->content() !~ m/^[(][01][)]$/aaixmso ) {
-            return;
-        }
-    }
-    elsif ( $sib2->isa( 'PPI::Token::Structure' ) && $SCOLON eq $sib2->content() ) {
-        return;
-    }
-
-    elsif ( $sib2->isa( 'PPI::Token::Number' ) && '0' ne $sib2->content() && '1' ne $sib2->content() ) {
-        return;
-    }
-    else {
-
-        my $sib3 = $sib2->snext_sibling();
-        if ( $sib3 && $sib3->isa( 'PPI::Token::Operator' ) ) {
-            return;
-        }
-    }
-
-    return $self->violation( $DESC, $EXPL, $elem );
+    return;
 }
 
 1;
