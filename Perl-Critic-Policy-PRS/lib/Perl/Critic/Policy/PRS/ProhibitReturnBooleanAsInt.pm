@@ -75,3 +75,41 @@ sub violates
 __END__
 
 #-----------------------------------------------------------------------------
+
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+Perl::Critic::Policy::PRS::ProhibitReturnBooleanAsInt
+
+=head1 AFFILIATION
+
+This policy is part of L<Perl::Critic::Policy::PRS|Perl::Critic::Policy::PRS>.
+
+=head1 DESCRIPTION
+
+This Policy searches for <"return 1"> and <"return 0"> statements,
+which are mainly used for boolean meaning, but are less expressiv
+than direct use of some boolean eg. <"return $true">.
+
+There are many different modules available for true, false - use it!
+
+=head1 CONFIGURATION
+
+No Configuration
+
+=head1 AUTHOR
+
+mardem1 <>
+
+=head1 COPYRIGHT
+
+Copyright (c) 2022 All rights reserved.
+
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself. The full text of this license
+can be found in the LICENSE file included with this module.
+
+=cut
