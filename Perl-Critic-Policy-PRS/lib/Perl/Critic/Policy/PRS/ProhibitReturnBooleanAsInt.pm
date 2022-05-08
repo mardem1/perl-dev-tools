@@ -31,7 +31,7 @@ sub default_themes
 
 sub applies_to
 {
-    return 'PPI::Token::Word';
+    return 'PPI::Statement::Break';
 }
 
 sub supported_parameters
@@ -43,32 +43,37 @@ sub violates
 {
     my ( $self, $elem, undef ) = @_;
 
-    if ( 'return' ne $elem->content() || is_hash_key( $elem ) ) {
+    my $sib1 = $elem->schild();    # not next element - need first child
+    if ( !$sib1 ) {
         return;
     }
 
-    my $sib = $elem->snext_sibling();
-
-    if ( !$sib ) {
+    if ( 'return' ne $sib1->content() || is_hash_key( $sib1 ) ) {
         return;
     }
 
-    if ( $sib->isa( 'PPI::Structure::List' ) ) {
-        if ( $sib->content() !~ m/^[(][01][)]$/aaixmso ) {
+    my $sib2 = $sib1->snext_sibling();
+    if ( !$sib2 ) {
+        return;
+    }
+
+    if ( $sib2->isa( 'PPI::Structure::List' ) ) {
+
+        if ( $sib2->content() !~ m/^[(][01][)]$/aaixmso ) {
             return;
         }
     }
-    elsif ( $sib->isa( 'PPI::Token::Structure' ) && $SCOLON eq $sib->content() ) {
+    elsif ( $sib2->isa( 'PPI::Token::Structure' ) && $SCOLON eq $sib2->content() ) {
         return;
     }
 
-    elsif ( $sib->isa( 'PPI::Token::Number' ) && '0' ne $sib->content() && '1' ne $sib->content() ) {
+    elsif ( $sib2->isa( 'PPI::Token::Number' ) && '0' ne $sib2->content() && '1' ne $sib2->content() ) {
         return;
     }
     else {
-        my $sib2 = $sib->snext_sibling();
 
-        if ( $sib2 && $sib2->isa( 'PPI::Token::Operator' ) ) {
+        my $sib3 = $sib2->snext_sibling();
+        if ( $sib3 && $sib3->isa( 'PPI::Token::Operator' ) ) {
             return;
         }
     }
