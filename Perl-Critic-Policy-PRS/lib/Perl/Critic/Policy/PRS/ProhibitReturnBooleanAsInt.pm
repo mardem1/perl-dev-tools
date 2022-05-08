@@ -35,8 +35,10 @@ sub violates
         return;
     }
 
-    if ( $sib->isa( 'PPI::Structure::List' ) && '0' ne $sib->content() && '1' ne $sib->content() ) {
-        return;
+    if ( $sib->isa( 'PPI::Structure::List' ) ) {
+        if ( $sib->content() !~ m/^[(][01][)]$/aaixmso ) {
+            return;
+        }
     }
     elsif ( $sib->isa( 'PPI::Token::Structure' ) && $SEMICOLON eq $sib->content() ) {
         return;
