@@ -10,15 +10,33 @@ use warnings;
 our $VERSION = '0.01';
 
 use Readonly;
-use Perl::Critic::Utils qw( is_hash_key );
+use Perl::Critic::Utils qw( is_hash_key $SEVERITY_MEDIUM $SCOLON );
 
 use base 'Perl::Critic::Policy';
 
-Readonly::Scalar my $SEMICOLON => q{;};
+## no critic (RequireInterpolationOfMetachars)
+Readonly::Scalar my $EXPL => q{Consider using some $false, $true or other available module implementation};
+
+Readonly::Scalar my $DESC => q{"return" statement with explicit "0/1"};
+
+sub default_severity
+{
+    return $SEVERITY_MEDIUM;
+}
+
+sub default_themes
+{
+    return qw(complexity maintenance);
+}
 
 sub applies_to
 {
     return 'PPI::Token::Word';
+}
+
+sub supported_parameters
+{
+    return;
 }
 
 sub violates
@@ -40,7 +58,7 @@ sub violates
             return;
         }
     }
-    elsif ( $sib->isa( 'PPI::Token::Structure' ) && $SEMICOLON eq $sib->content() ) {
+    elsif ( $sib->isa( 'PPI::Token::Structure' ) && $SCOLON eq $sib->content() ) {
         return;
     }
 
@@ -55,7 +73,7 @@ sub violates
         }
     }
 
-    return $self->violation( 'return desc', 'return expl', $elem );
+    return $self->violation( $DESC, $EXPL, $elem );
 }
 
 1;
