@@ -31,22 +31,26 @@ sub violates
 
     my $sib = $elem->snext_sibling();
 
-    if( !$sib ) {
+    if ( !$sib ) {
         return;
     }
 
-    if ( $sib->isa( 'PPI::Token::Structure' ) && $SEMICOLON eq $sib->content() ) {
+    if ( $sib->isa( 'PPI::Structure::List' ) && '0' ne $sib->content() ) {
+        return;
+    }
+    elsif ( $sib->isa( 'PPI::Token::Structure' ) && $SEMICOLON eq $sib->content() ) {
         return;
     }
 
-    if ( $sib->isa( 'PPI::Token::Number' ) && '0' ne $sib->content() && '1' ne $sib->content() ) {
+    elsif ( $sib->isa( 'PPI::Token::Number' ) && '0' ne $sib->content() && '1' ne $sib->content() ) {
         return;
     }
+    else {
+        my $sib2 = $sib->snext_sibling();
 
-    my $sib2 = $sib->snext_sibling();
-
-    if( $sib2 && $sib2->isa('PPI::Token::Operator')  ) {
-        return;
+        if ( $sib2 && $sib2->isa( 'PPI::Token::Operator' ) ) {
+            return;
+        }
     }
 
     return $self->violation( 'return desc', 'return expl', $elem );
