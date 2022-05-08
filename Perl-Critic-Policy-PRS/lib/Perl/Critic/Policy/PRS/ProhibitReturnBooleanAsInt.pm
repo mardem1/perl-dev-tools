@@ -60,26 +60,21 @@ sub _detailed_violates_check
 {
     my ( $elem ) = @_;
 
-    my $sib2 = $elem->snext_sibling();
-    if ( !$sib2 ) {
-        return $FALSE;
-    }
-
-    if ( $sib2->isa( 'PPI::Structure::List' ) ) {
-        if ( $sib2->content() !~ m/^[(][01][)]$/aaixmso ) {
+    if ( $elem->isa( 'PPI::Structure::List' ) ) {
+        if ( $elem->content() !~ m/^[(][01][)]$/aaixmso ) {
             return $FALSE;
         }
     }
-    elsif ( $sib2->isa( 'PPI::Token::Structure' ) && $SCOLON eq $sib2->content() ) {
+    elsif ( $elem->isa( 'PPI::Token::Structure' ) && $SCOLON eq $elem->content() ) {
         return $FALSE;
     }
-    elsif ( $sib2->isa( 'PPI::Token::Number' ) && '0' ne $sib2->content() && '1' ne $sib2->content() ) {
+    elsif ( $elem->isa( 'PPI::Token::Number' ) && '0' ne $elem->content() && '1' ne $elem->content() ) {
         return $FALSE;
     }
     else {
-        my $sib3 = $sib2->snext_sibling();
+        my $sib = $elem->snext_sibling();
 
-        if ( $sib3 && $sib3->isa( 'PPI::Token::Operator' ) ) {
+        if ( $sib && $sib->isa( 'PPI::Token::Operator' ) ) {
             return $FALSE;
         }
     }
@@ -91,12 +86,12 @@ sub violates
 {
     my ( $self, $elem, undef ) = @_;
 
-    my $sib1 = $elem->schild();    # not next element - need first child
-    if ( !$sib1 ) {
+    my $return_keyword = $elem->schild();    # not next element - need first child
+    if ( !$return_keyword ) {
         return;
     }
 
-    if ( 'return' ne $sib1->content() || is_hash_key( $sib1 ) ) {
+    if ( 'return' ne $return_keyword->content() || is_hash_key( $return_keyword ) ) {
         return;
     }
 
@@ -104,7 +99,14 @@ sub violates
         return $self->violation( $DESC, $EXPL, $elem );
     }
 
-    if ( _detailed_violates_check( $sib1 ) ) {
+    return;    # abort for fast check
+
+    my $child = $return_keyword->snext_sibling();
+    if ( !$child ) {
+        return;
+    }
+
+    if ( _detailed_violates_check( $child ) ) {
         return $self->violation( $DESC, $EXPL, $elem );
     }
 
