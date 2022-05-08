@@ -31,11 +31,15 @@ sub violates
 
     my $sib = $elem->snext_sibling();
 
-    if ( $sib && $sib->isa( 'PPI::Token::Structure' ) && $SEMICOLON eq $sib->content() ) {
+    if( !$sib ) {
         return;
     }
 
-    if ( $sib && $sib->isa( 'PPI::Token::Number' ) && '0' ne $sib->content() && '1' ne $sib->content() ) {
+    if ( $sib->isa( 'PPI::Token::Structure' ) && $SEMICOLON eq $sib->content() ) {
+        return;
+    }
+
+    if ( $sib->isa( 'PPI::Token::Number' ) && '0' ne $sib->content() && '1' ne $sib->content() ) {
         return;
     }
 
