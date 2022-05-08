@@ -52,6 +52,16 @@ sub violates
         return;
     }
 
+    my $return_line_content = $elem->content();
+    if ( !$return_line_content ) {
+        return;
+    }
+
+    # fast regex violation check - eg. "return 1"; - "return (1); # comment"
+    if ( $return_line_content =~ /^\s*return\s*[(]?\s*[01]\s*[)]?\s*;\s*/io ) {
+        return $self->violation( $DESC, $EXPL, $elem );
+    }
+
     my $sib2 = $sib1->snext_sibling();
     if ( !$sib2 ) {
         return;
