@@ -85,3 +85,33 @@ sub search_for_block_keyword
 __END__
 
 #-----------------------------------------------------------------------------
+
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+RPS::Util
+
+=head1 AFFILIATION
+
+This policy is part of L<Perl::Critic::Policy::PRS|Perl::Critic::Policy::PRS>.
+
+=head1 DESCRIPTION
+
+Util modle with internal subroutines for the <Perl::Critic::Policy::PRS> modules.
+
+=head1 AUTHOR
+
+mardem1 <>
+
+=head1 COPYRIGHT
+
+Copyright (c) 2022 All rights reserved.
+
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself. The full text of this license
+can be found in the LICENSE file included with this module.
+
+=cut
