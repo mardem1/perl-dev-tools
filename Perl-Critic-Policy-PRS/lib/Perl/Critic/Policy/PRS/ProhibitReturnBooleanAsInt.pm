@@ -79,6 +79,8 @@ sub _detailed_violates_check
         }
     }
 
+    # also all additions return 0 if ... violates - no extra checks needed.
+
     return $TRUE;
 }
 
@@ -98,8 +100,6 @@ sub violates
     if ( _simplified_violates_check( $elem ) ) {
         return $self->violation( $DESC, $EXPL, $elem );
     }
-
-    return;    # abort for fast check
 
     my $child = $return_keyword->snext_sibling();
     if ( !$child ) {
