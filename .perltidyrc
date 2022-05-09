@@ -28,6 +28,7 @@
 -sbl # opening sub brace on new line
 -asbl # opening sub anonymous brace on new line
 -xci # extended-continuation-indentation
+-nbbc # don't force blank lines before comments (bad for else blocks)
 
 -l=120 # Max line width is 120 cols
 
