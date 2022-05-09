@@ -28,8 +28,6 @@ my @poddirs = ( abs_path( $THISDIR ) . '/../' );
 
 all_pod_files_ok( all_pod_files( @poddirs ) );
 
-######
-
 done_testing();
 
 __END__
