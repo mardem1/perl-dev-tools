@@ -42,7 +42,5 @@ inc/
 **/*.tdy
 
 /notes.txt
-/run-*.bat
-/run-*.pl
 
 /Mardem-RefactoringPerlCriticPolicies
