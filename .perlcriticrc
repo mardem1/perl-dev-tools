@@ -6,12 +6,12 @@ severity = brutal
 # freenode is alias to community
 theme = !freenode
 
-[-PRS::ProhibitBlockComplexity]
-[-PRS::ProhibitConditionComplexity]
-[-PRS::ProhibitLargeBlock]
-[-PRS::ProhibitLargeSub]
-[-PRS::ProhibitManyConditionsInSub]
-[-PRS::ProhibitReturnBooleanAsInt]
+[-Mardem::ProhibitBlockComplexity]
+[-Mardem::ProhibitConditionComplexity]
+[-Mardem::ProhibitLargeBlock]
+[-Mardem::ProhibitLargeSub]
+[-Mardem::ProhibitManyConditionsInSub]
+[-Mardem::ProhibitReturnBooleanAsInt]
 
 [-CodeLayout::RequireTidyCode]
 perltidyrc = ".perltidyrc"
