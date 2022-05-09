@@ -15,7 +15,7 @@ use Perl::Critic::Utils qw{ :severities };
 
 use Test::More;
 
-Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitManyConditionsInSub';
+Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::Mardem::ProhibitManyConditionsInSub';
 
 Readonly::Scalar my $CONDITION_COUNT_LIMIT_VALUE_1 => 1;
 Readonly::Scalar my $CONDITION_COUNT_LIMIT_VALUE_2 => 2;

@@ -16,52 +16,52 @@ plan 'tests' => 7;
 BEGIN {
     my $error_txt = "Bail out!\n";
 
-    use_ok( 'RPS::Util' )
+    use_ok( 'Mardem::RefactoringPerlCriticPolicies::Util' )
         || print $error_txt;
 
-    use_ok( 'Perl::Critic::Policy::PRS::ProhibitConditionComplexity' )
+    use_ok( 'Perl::Critic::Policy::Mardem::ProhibitConditionComplexity' )
         || print $error_txt;
 
-    use_ok( 'Perl::Critic::Policy::PRS::ProhibitBlockComplexity' )
+    use_ok( 'Perl::Critic::Policy::Mardem::ProhibitBlockComplexity' )
         || print $error_txt;
 
-    use_ok( 'Perl::Critic::Policy::PRS::ProhibitLargeSub' )
+    use_ok( 'Perl::Critic::Policy::Mardem::ProhibitLargeSub' )
         || print $error_txt;
 
-    use_ok( 'Perl::Critic::Policy::PRS::ProhibitLargeBlock' )
+    use_ok( 'Perl::Critic::Policy::Mardem::ProhibitLargeBlock' )
         || print $error_txt;
 
-    use_ok( 'Perl::Critic::Policy::PRS::ProhibitManyConditionsInSub' )
+    use_ok( 'Perl::Critic::Policy::Mardem::ProhibitManyConditionsInSub' )
         || print $error_txt;
 
-    use_ok( 'Perl::Critic::Policy::PRS::ProhibitReturnBooleanAsInt' )
+    use_ok( 'Perl::Critic::Policy::Mardem::ProhibitReturnBooleanAsInt' )
         || print $error_txt;
 }
 
-diag( "\nTesting Perl::Critic::Policy::PRS::ProhibitConditionComplexity $RPS::Util::VERSION, Perl $], $^X" );
+diag( "\nTesting Perl::Critic::Policy::Mardem::ProhibitConditionComplexity $Mardem::RefactoringPerlCriticPolicies::Util::VERSION, Perl $], $^X" );
 
 diag(
-    "\nTesting Perl::Critic::Policy::PRS::ProhibitConditionComplexity $Perl::Critic::Policy::PRS::ProhibitConditionComplexity::VERSION, Perl $], $^X"
+    "\nTesting Perl::Critic::Policy::Mardem::ProhibitConditionComplexity $Perl::Critic::Policy::Mardem::ProhibitConditionComplexity::VERSION, Perl $], $^X"
 );
 
 diag(
-    "\nTesting Perl::Critic::Policy::PRS::ProhibitBlockComplexity $Perl::Critic::Policy::PRS::ProhibitBlockComplexity::VERSION, Perl $], $^X"
+    "\nTesting Perl::Critic::Policy::Mardem::ProhibitBlockComplexity $Perl::Critic::Policy::Mardem::ProhibitBlockComplexity::VERSION, Perl $], $^X"
 );
 
 diag(
-    "\nTesting Perl::Critic::Policy::PRS::ProhibitBlockComplexity $Perl::Critic::Policy::PRS::ProhibitLargeSub::VERSION, Perl $], $^X"
+    "\nTesting Perl::Critic::Policy::Mardem::ProhibitBlockComplexity $Perl::Critic::Policy::Mardem::ProhibitLargeSub::VERSION, Perl $], $^X"
 );
 
 diag(
-    "\nTesting Perl::Critic::Policy::PRS::ProhibitBlockComplexity $Perl::Critic::Policy::PRS::ProhibitLargeBlock::VERSION, Perl $], $^X"
+    "\nTesting Perl::Critic::Policy::Mardem::ProhibitBlockComplexity $Perl::Critic::Policy::Mardem::ProhibitLargeBlock::VERSION, Perl $], $^X"
 );
 
 diag(
-    "\nTesting Perl::Critic::Policy::PRS::ProhibitBlockComplexity $Perl::Critic::Policy::PRS::ProhibitManyConditionsInSub::VERSION, Perl $], $^X"
+    "\nTesting Perl::Critic::Policy::Mardem::ProhibitBlockComplexity $Perl::Critic::Policy::Mardem::ProhibitManyConditionsInSub::VERSION, Perl $], $^X"
 );
 
 diag(
-    "\nTesting Perl::Critic::Policy::PRS::ProhibitBlockComplexity $Perl::Critic::Policy::PRS::ProhibitReturnBooleanAsInt::VERSION, Perl $], $^X"
+    "\nTesting Perl::Critic::Policy::Mardem::ProhibitBlockComplexity $Perl::Critic::Policy::Mardem::ProhibitReturnBooleanAsInt::VERSION, Perl $], $^X"
 );
 
 done_testing();

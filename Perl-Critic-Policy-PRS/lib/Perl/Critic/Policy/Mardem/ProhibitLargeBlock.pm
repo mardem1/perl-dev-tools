@@ -1,4 +1,4 @@
-package Perl::Critic::Policy::PRS::ProhibitBlockComplexity;
+package Perl::Critic::Policy::Mardem::ProhibitLargeBlock;
 
 use utf8;
 
@@ -12,9 +12,8 @@ our $VERSION = '0.01';
 use Readonly;
 
 use Perl::Critic::Utils qw{ :severities :data_conversion :classification };
-use Perl::Critic::Utils::McCabe qw{ calculate_mccabe_of_main };
 
-use RPS::Util qw( search_for_block_keyword );
+use Mardem::RefactoringPerlCriticPolicies::Util qw( search_for_block_keyword );
 
 use base 'Perl::Critic::Policy';
 
@@ -38,9 +37,9 @@ sub applies_to
 sub supported_parameters
 {
     return (
-        {   'name'            => 'max_mccabe',
-            'description'     => 'The maximum complexity score allowed.',
-            'default_string'  => '10',
+        {   'name'            => 'statement_count_limit',
+            'description'     => 'The maximum statement count allowed.',
+            'default_string'  => '20',
             'behavior'        => 'integer',
             'integer_minimum' => 1,
         },
@@ -51,8 +50,14 @@ sub violates
 {
     my ( $self, $elem, undef ) = @_;
 
-    my $score = calculate_mccabe_of_main( $elem );
-    if ( $score <= $self->{ '_max_mccabe' } ) {
+    my $s = $elem->find( 'PPI::Statement' );
+
+    if ( !$s ) {
+        return;
+    }
+
+    my $statement_count = @{ $s };
+    if ( $statement_count <= $self->{ '_statement_count_limit' } ) {
         return;
     }
 
@@ -62,13 +67,12 @@ sub violates
     }
 
     if ( 'SUB' eq $block_keyword ) {
-        return;    # no sub -> see SUB Perl::Critic::Policy::Subroutines::ProhibitExcessComplexity !
+        return;    # no sub -> see SUB Perl::Critic::Policy::Mardem::ProhibitLargeSub !
     }
 
-    my $desc = qq<"$block_keyword" code-block has a high complexity score ($score)>;
+    my $desc = qq<"$block_keyword" code-block with high statement count ($statement_count)>;
     return $self->violation( $desc, $EXPL, $elem );
 }
-
 1;
 
 __END__
@@ -81,7 +85,7 @@ __END__
 
 =head1 NAME
 
-Perl::Critic::Policy::PRS::ProhibitBlockComplexity
+Perl::Critic::Policy::Mardem::ProhibitLargeBlock
 
 =head1 AFFILIATION
 
@@ -89,37 +93,18 @@ This policy is part of L<Perl::Critic::Policy::PRS|Perl::Critic::Policy::PRS>.
 
 =head1 DESCRIPTION
 
-This Policy approximates the McCabe score within a code block "eg if() {...}".
-
-See L<http://en.wikipedia.org/wiki/Cyclomatic_complexity>
-
-It should help to find complex code block, which should be extracted
-into subs, to be more testable.
-
-eg. from
-
-  if( $a ) {
-    ...
-    ...
-    ...
-  }
-
-to
-
-  if( $a ) {
-    do_something();
-  }
+This Policy counts the statements within a code block { ... } (more precise the PPI::Statement's)
 
 =head1 CONFIGURATION
 
-The maximum acceptable McCabe can be set with the C<max_mccabe>
-configuration item. Any block with a McCabe score higher than
-this number will generate a policy violation. The default is 10.
+The maximum acceptable Statement-Count can be set with the C<statement_count_limit>
+configuration item. Any block with a count higher than this number will generate a
+policy violation. The default is 20.
 
 An example section for a F<.perlcriticrc>:
 
-  [PRS::ProhibitBlockComplexity]
-  max_mccabe = 1
+  [PRS::ProhibitLargeBlock]
+  statement_count_limit = 1
 
 =head1 AUTHOR
 

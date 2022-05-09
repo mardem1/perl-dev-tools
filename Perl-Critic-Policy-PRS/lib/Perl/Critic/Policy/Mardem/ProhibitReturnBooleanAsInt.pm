@@ -1,4 +1,4 @@
-package Perl::Critic::Policy::PRS::ProhibitReturnBooleanAsInt;
+package Perl::Critic::Policy::Mardem::ProhibitReturnBooleanAsInt;
 
 use utf8;
 
@@ -82,7 +82,7 @@ __END__
 
 =head1 NAME
 
-Perl::Critic::Policy::PRS::ProhibitReturnBooleanAsInt
+Perl::Critic::Policy::Mardem::ProhibitReturnBooleanAsInt
 
 =head1 AFFILIATION
 

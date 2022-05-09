@@ -15,7 +15,7 @@ use Perl::Critic::Utils qw{ :severities };
 
 use Test::More;
 
-Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitLargeBlock';
+Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::Mardem::ProhibitLargeBlock';
 
 Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_1  => 1;
 Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_4  => 4;

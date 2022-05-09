@@ -12,7 +12,7 @@ our $VERSION = '0.01';
 use Readonly;
 use Perl::Critic;
 
-Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitReturnBooleanAsInt';
+Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::Mardem::ProhibitReturnBooleanAsInt';
 
 use Test::More;
 

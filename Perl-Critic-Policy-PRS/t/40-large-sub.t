@@ -15,7 +15,7 @@ use Perl::Critic;
 
 use Test::More;
 
-Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::PRS::ProhibitLargeSub';
+Readonly::Scalar my $POLICY_NAME => 'Perl::Critic::Policy::Mardem::ProhibitLargeSub';
 
 Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_1  => 1;
 Readonly::Scalar my $STATEMENT_COUNT_LIMIT_VALUE_2  => 2;

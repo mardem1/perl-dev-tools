@@ -1,4 +1,4 @@
-package RPS::Util;
+package Mardem::RefactoringPerlCriticPolicies::Util;
 
 use utf8;
 
@@ -92,7 +92,7 @@ __END__
 
 =head1 NAME
 
-RPS::Util
+Mardem::RefactoringPerlCriticPolicies::Util
 
 =head1 AFFILIATION
 

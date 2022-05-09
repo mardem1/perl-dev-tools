@@ -1,4 +1,4 @@
-package Perl::Critic::Policy::PRS::ProhibitConditionComplexity;
+package Perl::Critic::Policy::Mardem::ProhibitBlockComplexity;
 
 use utf8;
 
@@ -14,17 +14,11 @@ use Readonly;
 use Perl::Critic::Utils qw{ :severities :data_conversion :classification };
 use Perl::Critic::Utils::McCabe qw{ calculate_mccabe_of_main };
 
-use RPS::Util qw( search_for_block_keyword);
+use Mardem::RefactoringPerlCriticPolicies::Util qw( search_for_block_keyword );
 
 use base 'Perl::Critic::Policy';
 
 Readonly::Scalar my $EXPL => q{Consider refactoring};
-
-# see lib\PPI\Lexer.pm
-Readonly::Array my @BLOCK_SEARCH_KEYWORD => qw(
-    IF ELSIF UNLESS
-    WHILE UNTIL
-    FOR FOREACH );
 
 sub default_severity
 {
@@ -38,7 +32,7 @@ sub default_themes
 
 sub applies_to
 {
-    return ( 'PPI::Structure::Condition', 'PPI::Structure::For' );
+    return 'PPI::Structure::Block';
 }
 
 sub supported_parameters
@@ -46,7 +40,7 @@ sub supported_parameters
     return (
         {   'name'            => 'max_mccabe',
             'description'     => 'The maximum complexity score allowed.',
-            'default_string'  => '2',
+            'default_string'  => '10',
             'behavior'        => 'integer',
             'integer_minimum' => 1,
         },
@@ -66,14 +60,12 @@ sub violates
     if ( !$block_keyword ) {
         $block_keyword = 'no-keyword-found';
     }
-    else {
-        my @found = grep { $block_keyword eq $_ } @BLOCK_SEARCH_KEYWORD;
-        if ( !@found ) {
-            return;    # if a keyword is found, but not for an conditional block - than ignore
-        }
+
+    if ( 'SUB' eq $block_keyword ) {
+        return;    # no sub -> see SUB Perl::Critic::Policy::Subroutines::ProhibitExcessComplexity !
     }
 
-    my $desc = qq<"${block_keyword}" condition has a high complexity score ($score)>;
+    my $desc = qq<"$block_keyword" code-block has a high complexity score ($score)>;
     return $self->violation( $desc, $EXPL, $elem );
 }
 
@@ -89,7 +81,7 @@ __END__
 
 =head1 NAME
 
-Perl::Critic::Policy::PRS::ProhibitConditionComplexity
+Perl::Critic::Policy::Mardem::ProhibitBlockComplexity
 
 =head1 AFFILIATION
 
@@ -97,36 +89,36 @@ This policy is part of L<Perl::Critic::Policy::PRS|Perl::Critic::Policy::PRS>.
 
 =head1 DESCRIPTION
 
-This Policy approximates the McCabe score within a coditional block "eg if(...)".
+This Policy approximates the McCabe score within a code block "eg if() {...}".
 
 See L<http://en.wikipedia.org/wiki/Cyclomatic_complexity>
 
-It should help to find complex conditions, which should be extracted
+It should help to find complex code block, which should be extracted
 into subs, to be more testable.
 
 eg. from
 
-  if( $a && $b || $c > 20 ) { ... }
+  if( $a ) {
+    ...
+    ...
+    ...
+  }
 
 to
 
-  if( _some_test ($a, $b, $c) ) { .. }
-
-  sub _some_test {
-    my ($a, $b, $c ) = @_;
-
-    return  $a && $b || $c > 20;
+  if( $a ) {
+    do_something();
   }
 
 =head1 CONFIGURATION
 
 The maximum acceptable McCabe can be set with the C<max_mccabe>
 configuration item. Any block with a McCabe score higher than
-this number will generate a policy violation. The default is 2.
+this number will generate a policy violation. The default is 10.
 
 An example section for a F<.perlcriticrc>:
 
-  [PRS::ProhibitConditionComplexity]
+  [PRS::ProhibitBlockComplexity]
   max_mccabe = 1
 
 =head1 AUTHOR

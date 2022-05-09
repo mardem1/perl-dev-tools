@@ -15,37 +15,37 @@ use Test2::Tools::Exception qw/lives/;
 plan 'tests' => 7;
 
 ok( lives {
-        require RPS::Util;
+        require Mardem::RefactoringPerlCriticPolicies::Util;
     }
 );
 
 ok( lives {
-        require Perl::Critic::Policy::PRS::ProhibitConditionComplexity;
+        require Perl::Critic::Policy::Mardem::ProhibitConditionComplexity;
     }
 );
 
 ok( lives {
-        require Perl::Critic::Policy::PRS::ProhibitBlockComplexity;
+        require Perl::Critic::Policy::Mardem::ProhibitBlockComplexity;
     }
 );
 
 ok( lives {
-        require Perl::Critic::Policy::PRS::ProhibitLargeSub;
+        require Perl::Critic::Policy::Mardem::ProhibitLargeSub;
     }
 );
 
 ok( lives {
-        require Perl::Critic::Policy::PRS::ProhibitLargeBlock;
+        require Perl::Critic::Policy::Mardem::ProhibitLargeBlock;
     }
 );
 
 ok( lives {
-        require Perl::Critic::Policy::PRS::ProhibitManyConditionsInSub;
+        require Perl::Critic::Policy::Mardem::ProhibitManyConditionsInSub;
     }
 );
 
 ok( lives {
-        require Perl::Critic::Policy::PRS::ProhibitReturnBooleanAsInt;
+        require Perl::Critic::Policy::Mardem::ProhibitReturnBooleanAsInt;
     }
 );
 
