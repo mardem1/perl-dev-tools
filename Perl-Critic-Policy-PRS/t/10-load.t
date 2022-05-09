@@ -38,7 +38,9 @@ BEGIN {
         || print $error_txt;
 }
 
-diag( "\nTesting Perl::Critic::Policy::Mardem::ProhibitConditionComplexity $Mardem::RefactoringPerlCriticPolicies::Util::VERSION, Perl $], $^X" );
+diag(
+    "\nTesting Perl::Critic::Policy::Mardem::ProhibitConditionComplexity $Mardem::RefactoringPerlCriticPolicies::Util::VERSION, Perl $], $^X"
+);
 
 diag(
     "\nTesting Perl::Critic::Policy::Mardem::ProhibitConditionComplexity $Perl::Critic::Policy::Mardem::ProhibitConditionComplexity::VERSION, Perl $], $^X"
