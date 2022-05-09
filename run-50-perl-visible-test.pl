@@ -112,6 +112,7 @@ sub main
         say q{};
     }
 
+    return;
 }
 
 main();
