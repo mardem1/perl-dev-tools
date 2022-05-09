@@ -20,21 +20,31 @@ Readonly::Scalar my $SYSTEM_CALL_SIGNAL_BIT   => 127;
 Readonly::Scalar my $SYSTEM_CALL_COREDUMP_BIT => 127;
 Readonly::Scalar my $EXITCODE_OFFSET          => 8;
 
-my $include = File::Find::Rule->new()->file()->name( '*.pl', '*.pm', '*.t' );
+sub get_all_files
+{
+    ## no critic (ProhibitLongChainsOfMethodCalls)
+    my $exclude =
+        File::Find::Rule->new()->directory()->name( 'Mardem-RefactoringPerlCriticPolicies' )->prune()->discard();
 
-## no critic (ProhibitLongChainsOfMethodCalls)
-my $exclude = File::Find::Rule->new()->directory()->name( 'Mardem-RefactoringPerlCriticPolicies' )->prune()->discard();
+    my $include_all = File::Find::Rule->new()->file()->name( '*.pl', '*.pm', '*.t' );
 
-my $search = File::Find::Rule->new()->or( $include, $exclude );
+    my $search = File::Find::Rule->new()->or( $include_all, $exclude );
 
-my @files = $search->in( abs_path( $THISDIR ) );
+    my @files = $search->in( abs_path( $THISDIR ) );
 
-foreach my $filepath ( @files ) {
+    @files = map { abs_path( $_ ) } @files;
+
+    return @files;
+}
+
+sub run_system_visible
+{
+    my ( @params ) = @_;
+
     say q{};
-    say 'Test: ' . $filepath;
+    say 'execute ' . ( join q{ }, @params );
 
-    my $failure = system 'perlcritic', '--profile', abs_path( $THISDIR ) . '/.perlcriticrc', '--verbose', '9',
-        $filepath;
+    my $failure = system @params;
 
     if ( $failure ) {
         if ( $SYSTEM_START_FAILURE == $CHILD_ERROR ) {
@@ -51,7 +61,61 @@ foreach my $filepath ( @files ) {
         }
     }
 
+    say q{};
+
+    return !!$failure;
 }
+
+sub run_perl_critic
+{
+    my ( $filepath ) = @_;
+
+    my $failure = run_system_visible( 'perlcritic', '--profile', abs_path( $THISDIR ) . '/.perlcriticrc',
+        '--verbose', '9', $filepath );
+
+    return !!$failure;
+}
+
+sub main
+{
+    # set include path for test
+    local $ENV{ 'PERL5LIB' } = abs_path( $THISDIR ) . '/Perl-Critic-Policy-PRS/lib';
+
+    my @all_files = get_all_files();
+
+    my $failed_files = 0;
+
+    foreach my $filepath ( @all_files ) {
+        my $failure = run_perl_critic( $filepath );
+
+        if ( $failure ) {
+            $failed_files++;
+        }
+    }
+
+    if ( $failed_files ) {
+        say q{};
+        say q{};
+
+        say 'ERROR: some files failed: ' . $failed_files;
+
+        say q{};
+        say q{};
+    }
+    else {
+        say q{};
+        say q{};
+
+        say 'All Successful';
+
+        say q{};
+        say q{};
+    }
+
+    return;
+}
+
+main();
 
 __END__
 
