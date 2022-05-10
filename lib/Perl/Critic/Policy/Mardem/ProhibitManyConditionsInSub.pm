@@ -109,7 +109,7 @@ policy violation. The default is 3.
 
 An example section for a F<.perlcriticrc>:
 
-  [PRS::ProhibitManyConditionsInSub]
+  [Mardem::ProhibitManyConditionsInSub]
   condition_count_limit = 1
 
 =head1 AFFILIATION

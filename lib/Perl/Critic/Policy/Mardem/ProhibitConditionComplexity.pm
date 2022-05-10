@@ -122,7 +122,7 @@ this number will generate a policy violation. The default is 2.
 
 An example section for a F<.perlcriticrc>:
 
-  [PRS::ProhibitConditionComplexity]
+  [Mardem::ProhibitConditionComplexity]
   max_mccabe = 1
 
 =head1 AFFILIATION

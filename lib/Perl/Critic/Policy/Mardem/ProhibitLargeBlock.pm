@@ -100,7 +100,7 @@ policy violation. The default is 20.
 
 An example section for a F<.perlcriticrc>:
 
-  [PRS::ProhibitLargeBlock]
+  [Mardem::ProhibitLargeBlock]
   statement_count_limit = 1
 
 =head1 AFFILIATION

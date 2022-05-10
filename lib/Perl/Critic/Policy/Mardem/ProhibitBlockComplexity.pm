@@ -114,7 +114,7 @@ this number will generate a policy violation. The default is 10.
 
 An example section for a F<.perlcriticrc>:
 
-  [PRS::ProhibitBlockComplexity]
+  [Mardem::ProhibitBlockComplexity]
   max_mccabe = 1
 
 =head1 AFFILIATION
