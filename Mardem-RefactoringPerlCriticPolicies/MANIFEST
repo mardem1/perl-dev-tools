@@ -11,7 +11,14 @@ lib/Perl/Critic/Policy/Mardem/ProhibitReturnBooleanAsInt.pm
 LICENSE
 MANIFEST			This list of files
 README
-t/00-load.t
-t/manifest.t
-t/pod-coverage.t
-t/pod.t
+t/00-manifest.t
+t/05-rquire.t
+t/10-load.t
+t/20-complex-condition.t
+t/30-complex-block.t
+t/40-large-sub.t
+t/50-large-block.t
+t/60-many-conditions-in-sub.t
+t/70-boolean-as-int.t
+t/90-pod.t
+t/95-pod-coverage.t
