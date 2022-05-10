@@ -16,7 +16,7 @@ Module::Build->VERSION('0.4004');
 my $builder = Module::Build->new(
     'module_name'         => 'Mardem::RefactoringPerlCriticPolicies',
     'dist_abstract'       => 'Some Perl::Critic::Policies to search for needed refactoring',
-    'license'             => 'perl_5',
+    'license'             => 'Perl_5',
     'dist_author'         => q{mardem <mardem@cpan.com>},
     'dist_version_from'   => 'lib/Mardem/RefactoringPerlCriticPolicies.pm',
     'release_status'      => 'stable',
