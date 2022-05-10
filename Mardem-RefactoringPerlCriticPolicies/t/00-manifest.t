@@ -22,7 +22,7 @@ if ( $EVAL_ERROR ) {
     plan 'skip_all' => "Test::CheckManifest $min_tcm required";
 }
 
-ok_manifest();
+ok_manifest( { 'filter' => [ qr/ignore[.]txt/aaixmso, qr/[.]gitignore/aaixmso ] } );
 
 done_testing();
 
