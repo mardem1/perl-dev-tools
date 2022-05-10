@@ -22,13 +22,9 @@ Readonly::Scalar my $EXITCODE_OFFSET          => 8;
 
 sub get_all_files
 {
-    ## no critic (ProhibitLongChainsOfMethodCalls)
-    my $exclude =
-        File::Find::Rule->new()->directory()->name( 'Mardem-RefactoringPerlCriticPolicies' )->prune()->discard();
-
     my $include_all = File::Find::Rule->new()->file()->name( '*.pl', '*.pm', '*.t' );
 
-    my $search = File::Find::Rule->new()->or( $include_all, $exclude );
+    my $search = File::Find::Rule->new()->or( $include_all );
 
     my @files = $search->in( abs_path( $THISDIR ) );
 

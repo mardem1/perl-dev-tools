@@ -22,13 +22,9 @@ Readonly::Scalar my $EXITCODE_OFFSET          => 8;
 
 sub get_only_test_files
 {
-    ## no critic (ProhibitLongChainsOfMethodCalls)
-    my $exclude =
-        File::Find::Rule->new()->directory()->name( 'Mardem-RefactoringPerlCriticPolicies' )->prune()->discard();
-
     my $include_test = File::Find::Rule->new()->file()->name( '*.t' );
 
-    my $search = File::Find::Rule->new()->or( $include_test, $exclude );
+    my $search = File::Find::Rule->new()->or( $include_test );
 
     my @files = $search->in( abs_path( $THISDIR ) );
 
@@ -79,7 +75,7 @@ sub main
 {
 
     # set include path for test
-    local $ENV{ 'PERL5LIB' } = abs_path( $THISDIR ) . '/Perl-Critic-Policy-PRS/lib';
+    local $ENV{ 'PERL5LIB' } = abs_path( $THISDIR ) . '/Mardem-RefactoringPerlCriticPolicies/lib';
 
     my @test_files = get_only_test_files();
 
