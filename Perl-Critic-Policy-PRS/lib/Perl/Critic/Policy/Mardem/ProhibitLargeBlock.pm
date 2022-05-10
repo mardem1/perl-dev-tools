@@ -89,7 +89,7 @@ Perl::Critic::Policy::Mardem::ProhibitLargeBlock
 
 =head1 AFFILIATION
 
-This policy is part of L<Perl::Critic::Policy::PRS|Perl::Critic::Policy::PRS>.
+This policy is part of L<Mardem::RefactoringPerlCriticPolicies|Mardem::RefactoringPerlCriticPolicies>.
 
 =head1 DESCRIPTION
 
