@@ -11,10 +11,13 @@ our $VERSION = '0.01';
 
 use Test::More;
 
-plan 'tests' => 7;
+plan 'tests' => 8;
 
 BEGIN {
     my $error_txt = "Bail out!\n";
+
+    use_ok( 'Mardem::RefactoringPerlCriticPolicies' )
+        || print $error_txt;
 
     use_ok( 'Mardem::RefactoringPerlCriticPolicies::Util' )
         || print $error_txt;
@@ -37,6 +40,10 @@ BEGIN {
     use_ok( 'Perl::Critic::Policy::Mardem::ProhibitReturnBooleanAsInt' )
         || print $error_txt;
 }
+
+diag(
+    "\nTesting Perl::Critic::Policy::Mardem::ProhibitConditionComplexity $Mardem::RefactoringPerlCriticPolicies::VERSION, Perl $], $^X"
+);
 
 diag(
     "\nTesting Perl::Critic::Policy::Mardem::ProhibitConditionComplexity $Mardem::RefactoringPerlCriticPolicies::Util::VERSION, Perl $], $^X"
