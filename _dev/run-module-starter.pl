@@ -27,7 +27,7 @@ sub main
             'genlicense'   => 1,
             'minperl'      => '5.010',
             'author'       => 'mardem',
-            'email'        => 'mardem@cpan.com',
+            'email'        => 'mardem1@users.noreply.github.com',
             'distro'       => 'Mardem-RefactoringPerlCriticPolicies',
             'dir'          => 'Mardem-RefactoringPerlCriticPolicies',
             'modules'      => [
@@ -83,7 +83,7 @@ This policy is part of L<Mardem::RefactoringPerlCriticPolicies|Mardem::Refactori
 
 =head1 AUTHOR
 
-mardem, C<< <mardem at cpan.com> >>
+mardem, C<< <mardem1 at users.noreply.github.com> >>
 
 =head1 LICENSE AND COPYRIGHT
 

@@ -39,7 +39,7 @@ announcing their participation in this grouping.
 
 =head1 AUTHOR
 
-mardem, C<< <mardem at cpan.com> >>
+mardem, C<< <mardem1 at users.noreply.github.com> >>
 
 =head1 BUGS
 

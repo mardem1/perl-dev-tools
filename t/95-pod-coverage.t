@@ -69,7 +69,7 @@ This policy is part of L<Mardem::RefactoringPerlCriticPolicies|Mardem::Refactori
 
 =head1 AUTHOR
 
-mardem, C<< <mardem at cpan.com> >>
+mardem, C<< <mardem1 at users.noreply.github.com> >>
 
 =head1 LICENSE AND COPYRIGHT
 
