@@ -1,0 +1,17 @@
+Build.PL
+Changes
+lib/Mardem/RefactoringPerlCriticPolicies.pm
+lib/Mardem/RefactoringPerlCriticPolicies/Util.pm
+lib/Perl/Critic/Policy/Mardem/ProhibitBlockComplexity.pm
+lib/Perl/Critic/Policy/Mardem/ProhibitConditionComplexity.pm
+lib/Perl/Critic/Policy/Mardem/ProhibitLargeBlock.pm
+lib/Perl/Critic/Policy/Mardem/ProhibitLargeSub.pm
+lib/Perl/Critic/Policy/Mardem/ProhibitManyConditionsInSub.pm
+lib/Perl/Critic/Policy/Mardem/ProhibitReturnBooleanAsInt.pm
+LICENSE
+MANIFEST			This list of files
+README
+t/00-load.t
+t/manifest.t
+t/pod-coverage.t
+t/pod.t
