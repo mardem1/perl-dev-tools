@@ -1,50 +1,40 @@
 package Mardem::RefactoringPerlCriticPolicies;
 
+use utf8;
+
 use 5.010;
+
 use strict;
 use warnings;
 
 our $VERSION = '0.01';
 
-sub function1 {
-}
-
-sub function2 {
-}
-
 1;
 
 __END__
 
+#-----------------------------------------------------------------------------
+
+=pod
+
+=encoding utf8
+
 =head1 NAME
 
-Mardem::RefactoringPerlCriticPolicies - The great new Mardem::RefactoringPerlCriticPolicies!
+Mardem::RefactoringPerlCriticPolicies -
 
 =head1 VERSION
 
 Version 0.01
 
-=head1 SYNOPSIS
+=head1 DESCRIPTION
 
-Quick summary of what the module does.
 
-Perhaps a little code snippet.
+=head1 AFFILIATION
 
-    use Mardem::RefactoringPerlCriticPolicies;
-
-    my $foo = Mardem::RefactoringPerlCriticPolicies->new();
-    ...
-
-=head1 EXPORT
-
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
-
-=head1 SUBROUTINES/METHODS
-
-=head2 function1
-
-=head2 function2
+This module has no functionality, but instead contains documentation for this distribution and acts as a means of
+pulling other modules into a bundle. All of the Policy modules contained herein will have an "AFFILIATION" section
+announcing their participation in this grouping.
 
 =head1 AUTHOR
 
@@ -53,18 +43,14 @@ mardem, C<< <mardem at cpan.com> >>
 =head1 BUGS
 
 Please report any bugs or feature requests to C<bug-mardem-refactoringperlcriticpolicies at rt.cpan.org>, or through
-the web interface at L<https://rt.cpan.org/NoAuth/ReportBug.html?Queue=Mardem-RefactoringPerlCriticPolicies>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
-
+the web interface at L<https://rt.cpan.org/NoAuth/ReportBug.html?Queue=Mardem-RefactoringPerlCriticPolicies>.
+I will be notified, and then you'll automatically be notified of progress on your bug as I make changes.
 
 =head1 SUPPORT
 
 You can find documentation for this module with the perldoc command.
 
     perldoc Mardem::RefactoringPerlCriticPolicies
-
 
 You can also look for information at:
 
@@ -84,16 +70,12 @@ L<https://metacpan.org/release/Mardem-RefactoringPerlCriticPolicies>
 
 =back
 
-
-=head1 ACKNOWLEDGEMENTS
-
-
 =head1 LICENSE AND COPYRIGHT
 
-This software is copyright (c) 2022 by mardem.
+Copyright (c) 2022, mardem
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
+the same terms as Perl itself. The full text of this license can be
+found in the LICENSE file included with this module.
 
 =cut
