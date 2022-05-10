@@ -16,8 +16,8 @@ if ( !$ENV{ 'RELEASE_TESTING' } ) {
     plan 'skip_all' => 'Author tests not required for installation';
 }
 
-my $min_tcm = 0.9; ## no critic (ProhibitMagicNumbers)
-eval "use Test::CheckManifest $min_tcm"; ## no critic (ProhibitStringyEval,RequireCheckingReturnValueOfEval)
+my $min_tcm = 0.9;                          ## no critic (ProhibitMagicNumbers)
+eval "use Test::CheckManifest $min_tcm";    ## no critic (ProhibitStringyEval,RequireCheckingReturnValueOfEval)
 if ( $EVAL_ERROR ) {
     plan 'skip_all' => "Test::CheckManifest $min_tcm required";
 }

@@ -73,6 +73,7 @@ sub violates
     my $desc = qq<"$block_keyword" code-block with high statement count ($statement_count)>;
     return $self->violation( $desc, $EXPL, $elem );
 }
+
 1;
 
 __END__

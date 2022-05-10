@@ -14,13 +14,13 @@ use Path::This qw( $THISDIR );
 use Test::More;
 use English qw( -no_match_vars );
 
-if ( ! $ENV{ 'RELEASE_TESTING' } ) {
+if ( !$ENV{ 'RELEASE_TESTING' } ) {
     plan 'skip_all' => 'Author tests not required for installation';
 }
 
 # Ensure a recent version of Test::Pod
-my $min_tp = 1.22; ## no critic (ProhibitMagicNumbers)
-eval "use Test::Pod $min_tp"; ## no critic (ProhibitStringyEval,RequireCheckingReturnValueOfEval)
+my $min_tp = 1.22;               ## no critic (ProhibitMagicNumbers)
+eval "use Test::Pod $min_tp";    ## no critic (ProhibitStringyEval,RequireCheckingReturnValueOfEval)
 if ( $EVAL_ERROR ) {
     plan 'skip_all' => "Test::Pod $min_tp required for testing POD";
 }
