@@ -29,7 +29,7 @@ Version 0.01
 
 =head1 DESCRIPTION
 
-TODO need some description
+L<https://github.com/mardem1/mardem-refactoring-perlcritic-policies>
 
 =head1 AFFILIATION
 
