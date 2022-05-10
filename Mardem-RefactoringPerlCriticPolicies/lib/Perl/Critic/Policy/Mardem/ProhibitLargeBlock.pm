@@ -4,6 +4,19 @@ use 5.010;
 use strict;
 use warnings;
 
+our $VERSION = '0.01';
+
+sub function1 {
+}
+
+
+sub function2 {
+}
+
+1;
+
+__END__
+
 =head1 NAME
 
 Perl::Critic::Policy::Mardem::ProhibitLargeBlock - The great new Perl::Critic::Policy::Mardem::ProhibitLargeBlock!
@@ -11,11 +24,6 @@ Perl::Critic::Policy::Mardem::ProhibitLargeBlock - The great new Perl::Critic::P
 =head1 VERSION
 
 Version 0.01
-
-=cut
-
-our $VERSION = '0.01';
-
 
 =head1 SYNOPSIS
 
@@ -37,17 +45,7 @@ if you don't export anything, such as for a purely object-oriented module.
 
 =head2 function1
 
-=cut
-
-sub function1 {
-}
-
 =head2 function2
-
-=cut
-
-sub function2 {
-}
 
 =head1 AUTHOR
 
@@ -100,5 +98,3 @@ the same terms as the Perl 5 programming language system itself.
 
 
 =cut
-
-1; # End of Perl::Critic::Policy::Mardem::ProhibitLargeBlock
