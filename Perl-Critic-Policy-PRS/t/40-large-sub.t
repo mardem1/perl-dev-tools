@@ -373,12 +373,13 @@ This policy is part of L<Mardem::RefactoringPerlCriticPolicies|Mardem::Refactori
 
 mardem, C<< <mardem at cpan.com> >>
 
-=head1 COPYRIGHT
+=head1 LICENSE AND COPYRIGHT
 
 Copyright (c) 2022, mardem
 
-This program is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. The full text of this license
-can be found in the LICENSE file included with this module.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself. The
+full text of this license can be found in the LICENSE file included
+with this module.
 
 =cut
