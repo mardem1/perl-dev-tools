@@ -1,100 +1,132 @@
 package Perl::Critic::Policy::Mardem::ProhibitManyConditionsInSub;
 
+use utf8;
+
 use 5.010;
+
 use strict;
 use warnings;
 
 our $VERSION = '0.01';
 
-sub function1 {
+use Readonly;
+
+use Perl::Critic::Utils qw{ :severities :data_conversion :classification };
+
+use base 'Perl::Critic::Policy';
+
+Readonly::Scalar my $EXPL => q{Consider refactoring};
+
+sub default_severity
+{
+    return $SEVERITY_MEDIUM;
 }
 
+sub default_themes
+{
+    return qw(complexity maintenance);
+}
 
-sub function2 {
+sub applies_to
+{
+    return 'PPI::Statement::Sub';
+}
+
+sub supported_parameters
+{
+    return (
+        {   'name'            => 'condition_count_limit',
+            'description'     => 'The maximum condition count allowed.',
+            'default_string'  => '3',
+            'behavior'        => 'integer',
+            'integer_minimum' => 1,
+        },
+    );
+}
+
+sub violates
+{
+    my ( $self, $elem, undef ) = @_;
+
+    my $s = $elem->find(
+        sub
+        {
+            my ( undef, $element ) = @_;
+
+            my $interesting =
+                   $element->isa( 'PPI::Structure::Condition' )
+                || $element->isa( 'PPI::Structure::For' )
+                || $element->isa( 'PPI::Structure::Given' );
+
+            return $interesting;
+        }
+    );
+
+    if ( !$s ) {
+        return;
+    }
+
+    my $condition_count = @{ $s };
+    if ( $condition_count <= $self->{ '_condition_count_limit' } ) {
+        return;
+    }
+
+    my $desc;
+    if ( my $name = $elem->name() ) {
+        $desc = qq<Subroutine "$name" with high condition count ($condition_count)>;
+    }
+    else {
+        # never the case becaus no PPI::Statement::Sub
+        $desc = qq<Anonymous subroutine with high condition count ($condition_count)>;
+    }
+
+    return $self->violation( $desc, $EXPL, $elem );
 }
 
 1;
 
 __END__
 
+#-----------------------------------------------------------------------------
+
+=pod
+
+=encoding utf8
+
 =head1 NAME
 
-Perl::Critic::Policy::Mardem::ProhibitManyConditionsInSub - The great new Perl::Critic::Policy::Mardem::ProhibitManyConditionsInSub!
+Perl::Critic::Policy::Mardem::ProhibitManyConditionsInSub
 
-=head1 VERSION
+=head1 DESCRIPTION
 
-Version 0.01
+This Policy counts the conditions within a sub. (more precise the PPI::Structure::Condition's, PPI::Structure::For's and PPI::Structure::Given's)
 
-=head1 SYNOPSIS
+=head1 CONFIGURATION
 
-Quick summary of what the module does.
+The maximum acceptable Condition-Count can be set with the C<condition_count_limit>
+configuration item. Any sub with a count higher than this number will generate a
+policy violation. The default is 3.
 
-Perhaps a little code snippet.
+An example section for a F<.perlcriticrc>:
 
-    use Perl::Critic::Policy::Mardem::ProhibitManyConditionsInSub;
+  [PRS::ProhibitManyConditionsInSub]
+  condition_count_limit = 1
 
-    my $foo = Perl::Critic::Policy::Mardem::ProhibitManyConditionsInSub->new();
-    ...
+=head1 AFFILIATION
 
-=head1 EXPORT
-
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
-
-=head1 SUBROUTINES/METHODS
-
-=head2 function1
-
-=head2 function2
+This policy is part of L<Mardem::RefactoringPerlCriticPolicies|Mardem::RefactoringPerlCriticPolicies>.
 
 =head1 AUTHOR
 
 mardem, C<< <mardem at cpan.com> >>
 
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-mardem-refactoringperlcriticpolicies at rt.cpan.org>, or through
-the web interface at L<https://rt.cpan.org/NoAuth/ReportBug.html?Queue=Mardem-RefactoringPerlCriticPolicies>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
-
-
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc Perl::Critic::Policy::Mardem::ProhibitManyConditionsInSub
-
-
-You can also look for information at:
-
-=over 4
-
-=item * RT: CPAN's request tracker (report bugs here)
-
-L<https://rt.cpan.org/NoAuth/Bugs.html?Dist=Mardem-RefactoringPerlCriticPolicies>
-
-=item * CPAN Ratings
-
-L<https://cpanratings.perl.org/d/Mardem-RefactoringPerlCriticPolicies>
-
-=item * Search CPAN
-
-L<https://metacpan.org/release/Mardem-RefactoringPerlCriticPolicies>
-
-=back
-
-
-=head1 ACKNOWLEDGEMENTS
-
-
 =head1 LICENSE AND COPYRIGHT
 
-This software is copyright (c) 2022 by mardem.
+Copyright (c) 2022, mardem
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
+the same terms as the Perl 5 programming language system itself. The
+full text of this license can be found in the LICENSE file included
+with this module.
 
 =cut
