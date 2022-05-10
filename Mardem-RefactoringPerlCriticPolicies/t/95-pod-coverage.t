@@ -1,24 +1,83 @@
 #!perl
+
+use utf8;
+
 use 5.010;
+
 use strict;
 use warnings;
-use Test::More;
 
-unless ( $ENV{ RELEASE_TESTING } ) {
-    plan( skip_all => "Author tests not required for installation" );
+our $VERSION = '0.01';
+
+use Cwd qw( getcwd abs_path );
+use Path::This qw( $THISDIR );
+use Test::More;
+use English qw( -no_match_vars );
+
+if ( !$ENV{ 'RELEASE_TESTING' } ) {
+    plan 'skip_all' => 'Author tests not required for installation';
+}
+else {
+    # Ensure a recent version of Test::Pod::Coverage
+    my $min_tpc = 1.08;                         ## no critic (ProhibitMagicNumbers)
+    local $EVAL_ERROR = undef;
+    eval "use Test::Pod::Coverage $min_tpc";    ## no critic (ProhibitStringyEval,RequireCheckingReturnValueOfEval)
+    if ( $EVAL_ERROR ) {
+        plan 'skip_all' => "Test::Pod::Coverage $min_tpc required for testing POD coverage";
+    }
+
+    # Test::Pod::Coverage doesn't require a minimum Pod::Coverage version,
+    # but older versions don't recognize some common documentation styles
+    my $min_pc = 0.18;                   ## no critic (ProhibitMagicNumbers)
+    local $EVAL_ERROR = undef;
+    eval "use Pod::Coverage $min_pc";    ## no critic (ProhibitStringyEval,RequireCheckingReturnValueOfEval)
+    if ( $EVAL_ERROR ) {
+        plan 'skip_all' => "Pod::Coverage $min_pc required for testing POD coverage";
+    }
+
+    my $cwd_dir      = abs_path( getcwd() );
+    my $expected_dir = abs_path( $THISDIR . '/../' );
+
+    chdir $expected_dir;
+
+    all_pod_coverage_ok();
+
+    chdir $cwd_dir;
 }
 
-# Ensure a recent version of Test::Pod::Coverage
-my $min_tpc = 1.08;
-eval "use Test::Pod::Coverage $min_tpc";
-plan skip_all => "Test::Pod::Coverage $min_tpc required for testing POD coverage"
-    if $@;
+done_testing();
 
-# Test::Pod::Coverage doesn't require a minimum Pod::Coverage version,
-# but older versions don't recognize some common documentation styles
-my $min_pc = 0.18;
-eval "use Pod::Coverage $min_pc";
-plan skip_all => "Pod::Coverage $min_pc required for testing POD coverage"
-    if $@;
+__END__
 
-all_pod_coverage_ok();
+#-----------------------------------------------------------------------------
+
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+95-pod-coverage.t
+
+=head1 DESCRIPTION
+
+Test-Script
+
+=head1 AFFILIATION
+
+This policy is part of L<Mardem::RefactoringPerlCriticPolicies|Mardem::RefactoringPerlCriticPolicies>.
+
+=head1 AUTHOR
+
+mardem, C<< <mardem at cpan.com> >>
+
+=head1 LICENSE AND COPYRIGHT
+
+Copyright (c) 2022, mardem
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself. The
+full text of this license can be found in the LICENSE file included
+with this module.
+
+=cut
