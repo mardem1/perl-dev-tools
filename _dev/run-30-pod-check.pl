@@ -26,7 +26,7 @@ sub get_all_files
 
     my $search = File::Find::Rule->new()->or( $include_all );
 
-    my @files = $search->in( abs_path( $THISDIR ) );
+    my @files = $search->in( abs_path( $THISDIR . '/..' ) );
 
     @files = map { abs_path( $_ ) } @files;
 

@@ -20,13 +20,13 @@ Readonly::Scalar my $SYSTEM_CALL_SIGNAL_BIT   => 127;
 Readonly::Scalar my $SYSTEM_CALL_COREDUMP_BIT => 127;
 Readonly::Scalar my $EXITCODE_OFFSET          => 8;
 
-sub get_all_files
+sub get_only_test_files
 {
-    my $include_all = File::Find::Rule->new()->file()->name( '*.pl', '*.pm', '*.t' );
+    my $include_test = File::Find::Rule->new()->file()->name( '*.t' );
 
-    my $search = File::Find::Rule->new()->or( $include_all );
+    my $search = File::Find::Rule->new()->or( $include_test );
 
-    my @files = $search->in( abs_path( $THISDIR ) );
+    my @files = $search->in( abs_path( $THISDIR . '/..' ) );
 
     @files = map { abs_path( $_ ) } @files;
 
@@ -62,26 +62,27 @@ sub run_system_visible
     return !!$failure;
 }
 
-sub run_compile_test
+sub run_prove
 {
     my ( $filepath ) = @_;
 
-    my $failure = run_system_visible( 'perl', '-c', $filepath );
+    my $failure = run_system_visible( 'prove', $filepath );
 
     return !!$failure;
 }
 
 sub main
 {
-    # set include path for test
-    local $ENV{ 'PERL5LIB' } = abs_path( $THISDIR ) . '/Mardem-RefactoringPerlCriticPolicies/lib';
 
-    my @all_files = get_all_files();
+    # set include path for test
+    local $ENV{ 'PERL5LIB' } = abs_path( $THISDIR . '/../Mardem-RefactoringPerlCriticPolicies/lib' );
+
+    my @test_files = get_only_test_files();
 
     my $failed_files = 0;
 
-    foreach my $filepath ( @all_files ) {
-        my $failure = run_compile_test( $filepath );
+    foreach my $filepath ( @test_files ) {
+        my $failure = run_prove( $filepath );
 
         if ( $failure ) {
             $failed_files++;
@@ -122,11 +123,11 @@ __END__
 
 =head1 NAME
 
-run-20-perl-compile.pl
+run-40-prove.pl
 
 =head1 DESCRIPTION
 
-Helper script to run a perl compile-check on all files.
+Helper script to run a prove test on all test files.
 
 =head1 AFFILIATION
 

@@ -22,11 +22,12 @@ Readonly::Scalar my $EXITCODE_OFFSET          => 8;
 
 sub get_only_test_files
 {
+
     my $include_test = File::Find::Rule->new()->file()->name( '*.t' );
 
     my $search = File::Find::Rule->new()->or( $include_test );
 
-    my @files = $search->in( abs_path( $THISDIR ) );
+    my @files = $search->in( abs_path( $THISDIR . '/..' ) );
 
     @files = map { abs_path( $_ ) } @files;
 
@@ -62,27 +63,26 @@ sub run_system_visible
     return !!$failure;
 }
 
-sub run_prove
+sub run_test_visible
 {
     my ( $filepath ) = @_;
 
-    my $failure = run_system_visible( 'prove', $filepath );
+    my $failure = run_system_visible( 'perl', $filepath );
 
     return !!$failure;
 }
 
 sub main
 {
-
     # set include path for test
-    local $ENV{ 'PERL5LIB' } = abs_path( $THISDIR ) . '/Mardem-RefactoringPerlCriticPolicies/lib';
+    local $ENV{ 'PERL5LIB' } = abs_path( $THISDIR . '/../Mardem-RefactoringPerlCriticPolicies/lib' );
 
     my @test_files = get_only_test_files();
 
     my $failed_files = 0;
 
     foreach my $filepath ( @test_files ) {
-        my $failure = run_prove( $filepath );
+        my $failure = run_test_visible( $filepath );
 
         if ( $failure ) {
             $failed_files++;
@@ -123,11 +123,11 @@ __END__
 
 =head1 NAME
 
-run-40-prove.pl
+run-50-perl-visible-test.pl
 
 =head1 DESCRIPTION
 
-Helper script to run a prove test on all test files.
+Helper script to run all test files with perl to see all the test output.
 
 =head1 AFFILIATION
 

@@ -22,14 +22,11 @@ Readonly::Scalar my $EXITCODE_OFFSET          => 8;
 
 sub get_all_files
 {
-    ## no critic (ProhibitLongChainsOfMethodCalls)
-    my $exclude_self = File::Find::Rule->new()->file()->name( 'run-10-perl-tidy.pl' )->prune()->discard();
-
     my $include_all = File::Find::Rule->new()->file()->name( '*.pl', '*.pm', '*.t' );
 
-    my $search = File::Find::Rule->new()->or( $exclude_self, $include_all );
+    my $search = File::Find::Rule->new()->or( $include_all );
 
-    my @files = $search->in( abs_path( $THISDIR ) );
+    my @files = $search->in( abs_path( $THISDIR . '/..' ) );
 
     @files = map { abs_path( $_ ) } @files;
 
@@ -65,30 +62,26 @@ sub run_system_visible
     return !!$failure;
 }
 
-sub run_perl_tidy
+sub run_compile_test
 {
     my ( $filepath ) = @_;
 
-    my $failure = run_system_visible( 'perltidy', $filepath );
-
-    my $bak_file = $filepath . '.bak';
-    ## no critic (ProhibitFiletest_f)
-    if ( -f $bak_file ) {
-        say 'unlink: ' . $bak_file;
-        unlink $bak_file;
-    }
+    my $failure = run_system_visible( 'perl', '-c', $filepath );
 
     return !!$failure;
 }
 
 sub main
 {
+    # set include path for test
+    local $ENV{ 'PERL5LIB' } = abs_path( $THISDIR . '/../Mardem-RefactoringPerlCriticPolicies/lib' );
+
     my @all_files = get_all_files();
 
     my $failed_files = 0;
 
     foreach my $filepath ( @all_files ) {
-        my $failure = run_perl_tidy( $filepath );
+        my $failure = run_compile_test( $filepath );
 
         if ( $failure ) {
             $failed_files++;
@@ -129,11 +122,11 @@ __END__
 
 =head1 NAME
 
-run-10-perl-tidy.pl
+run-20-perl-compile.pl
 
 =head1 DESCRIPTION
 
-Helper script to run perltidy on all files.
+Helper script to run a perl compile-check on all files.
 
 =head1 AFFILIATION
 

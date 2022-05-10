@@ -41,4 +41,4 @@ inc/
 **/*.bak
 **/*.tdy
 
-/notes.txt
+/_dev/notes.txt
