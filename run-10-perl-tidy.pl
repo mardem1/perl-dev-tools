@@ -23,15 +23,11 @@ Readonly::Scalar my $EXITCODE_OFFSET          => 8;
 sub get_all_files
 {
     ## no critic (ProhibitLongChainsOfMethodCalls)
-    my $exclude_dir =
-        File::Find::Rule->new()->directory()->name( 'Mardem-RefactoringPerlCriticPolicies' )->prune()->discard();
-
-    ## no critic (ProhibitLongChainsOfMethodCalls)
     my $exclude_self = File::Find::Rule->new()->file()->name( 'run-10-perl-tidy.pl' )->prune()->discard();
 
     my $include_all = File::Find::Rule->new()->file()->name( '*.pl', '*.pm', '*.t' );
 
-    my $search = File::Find::Rule->new()->or( $exclude_self, $exclude_dir, $include_all );
+    my $search = File::Find::Rule->new()->or( $exclude_self, $include_all );
 
     my @files = $search->in( abs_path( $THISDIR ) );
 
@@ -147,12 +143,13 @@ This policy is part of L<Mardem::RefactoringPerlCriticPolicies|Mardem::Refactori
 
 mardem, C<< <mardem at cpan.com> >>
 
-=head1 COPYRIGHT
+=head1 LICENSE AND COPYRIGHT
 
 Copyright (c) 2022, mardem
 
-This program is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. The full text of this license
-can be found in the LICENSE file included with this module.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself. The
+full text of this license can be found in the LICENSE file included
+with this module.
 
 =cut
