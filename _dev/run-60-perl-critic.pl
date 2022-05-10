@@ -11,7 +11,7 @@ our $VERSION = '0.01';
 
 use Readonly;
 use Path::This qw( $THISDIR );
-use Cwd qw( abs_path );
+use Cwd qw( getcwd abs_path );
 use File::Find::Rule;
 use English qw( -no_match_vars );
 
@@ -19,6 +19,32 @@ Readonly::Scalar my $SYSTEM_START_FAILURE     => -1;
 Readonly::Scalar my $SYSTEM_CALL_SIGNAL_BIT   => 127;
 Readonly::Scalar my $SYSTEM_CALL_COREDUMP_BIT => 127;
 Readonly::Scalar my $EXITCODE_OFFSET          => 8;
+
+sub reduce_filepath_to_relapth
+{
+    my ( $filepath ) = @_;
+
+    my $cwd_abs_path = abs_path( getcwd() );
+    if ( !$cwd_abs_path ) {
+        return $filepath;
+    }
+
+    my $relpath = abs_path( $filepath );
+
+    if ( !$relpath ) {
+        return $filepath;
+    }
+
+    my $pos = index $relpath, $cwd_abs_path;
+    if ( defined $pos && 0 == $pos ) {
+        $relpath = substr $relpath, ( ( length $cwd_abs_path ) );
+        if ( q{/} eq substr $relpath, 0, 1 ) {
+            $relpath = q{.} . $relpath;
+        }
+    }
+
+    return $relpath;
+}
 
 sub get_all_files
 {
@@ -28,7 +54,7 @@ sub get_all_files
 
     my @files = $search->in( abs_path( $THISDIR . '/..' ) );
 
-    @files = map { abs_path( $_ ) } @files;
+    @files = map { reduce_filepath_to_relapth( $_ ) } @files;
 
     return @files;
 }
@@ -66,8 +92,8 @@ sub run_perl_critic
 {
     my ( $filepath ) = @_;
 
-    my $failure = run_system_visible( 'perlcritic', '--profile', abs_path( $THISDIR . '/.perlcriticrc' ),
-        '--verbose', '9', $filepath );
+    my $criticrc = reduce_filepath_to_relapth( $THISDIR . '/.perlcriticrc' );
+    my $failure  = run_system_visible( 'perlcritic', '--profile', $criticrc, '--verbose', '9', $filepath );
 
     return !!$failure;
 }
