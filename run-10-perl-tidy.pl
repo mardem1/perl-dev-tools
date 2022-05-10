@@ -139,13 +139,17 @@ run-10-perl-tidy.pl
 
 Helper script to run perltidy on all files.
 
+=head1 AFFILIATION
+
+This policy is part of L<Mardem::RefactoringPerlCriticPolicies|Mardem::RefactoringPerlCriticPolicies>.
+
 =head1 AUTHOR
 
-mardem1 <>
+mardem, C<< <mardem at cpan.com> >>
 
 =head1 COPYRIGHT
 
-Copyright (c) 2022 All rights reserved.
+Copyright (c) 2022, mardem
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. The full text of this license
