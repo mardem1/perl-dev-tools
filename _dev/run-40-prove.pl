@@ -101,7 +101,7 @@ sub main
 {
 
     # set include path for test
-    local $ENV{ 'PERL5LIB' } = abs_path( $THISDIR . '/../Mardem-RefactoringPerlCriticPolicies/lib' );
+    local $ENV{ 'PERL5LIB' } = abs_path( $THISDIR . '/../lib' );
 
     my @test_files = get_only_test_files();
 
