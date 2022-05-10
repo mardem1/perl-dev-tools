@@ -1,99 +1,118 @@
 package Mardem::RefactoringPerlCriticPolicies::Util;
 
+use utf8;
+
 use 5.010;
+
 use strict;
 use warnings;
 
 our $VERSION = '0.01';
 
-sub function1 {
+use Readonly;
+use List::Util qw( first );
+
+use Perl::Critic::Utils qw{ is_hash_key };
+
+use base 'Exporter';
+
+our @EXPORT_OK = qw( search_for_block_keyword );
+
+Readonly::Array my @BLOCK_SEARCH_KEYWORD => qw(
+    SUB
+    IF ELSIF UNLESS
+    WHILE UNTIL
+    DO
+    FOR FOREACH
+    EVAL
+    SORT MAP GREP
+    BEGIN UNITCHECK CHECK INIT END
+    PACKAGE );
+
+Readonly::Scalar my $MAX_KEYWORD_LOOKUP_DEPTH => 10;
+
+sub _keyword_in_searchlist
+{
+    my ( $keyword ) = @_;
+
+    $keyword = uc $keyword;
+
+    my $found = first { $_ eq $keyword } @BLOCK_SEARCH_KEYWORD;
+
+    return $found;
 }
 
-sub function2 {
+sub search_for_block_keyword
+{
+    my ( $elem ) = @_;
+
+    if ( !ref $elem ) {
+        last;
+    }
+
+    my $word_search   = $elem;
+    my $block_keyword = q{};
+
+    my $i = 1;
+
+    while ( !$block_keyword ) {
+        if ( $i >= $MAX_KEYWORD_LOOKUP_DEPTH ) {
+            last;    # recurse abort!
+        }
+
+        my $sprevious = $word_search->sprevious_sibling;
+
+        if ( !$sprevious || $sprevious == $word_search ) {
+            last;
+        }
+
+        if ( !is_hash_key( $sprevious ) ) {
+            $word_search = $sprevious;
+
+            my $content_search = $word_search->content;
+
+            $block_keyword = _keyword_in_searchlist( $content_search );
+        }
+
+        $i++;
+    }
+
+    return $block_keyword;
 }
 
 1;
 
 __END__
 
+#-----------------------------------------------------------------------------
+
+=pod
+
+=encoding utf8
+
 =head1 NAME
 
-Mardem::RefactoringPerlCriticPolicies::Util - The great new Mardem::RefactoringPerlCriticPolicies::Util!
+Mardem::RefactoringPerlCriticPolicies::Util - Internal Util module!
 
-=head1 VERSION
+=head1 DESCRIPTION
 
-Version 0.01
+Util modle with internal subroutines for the <Mardem::RefactoringPerlCriticPolicies> modules.
 
-=head1 SYNOPSIS
+=head1 AFFILIATION
 
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
-
-    use Mardem::RefactoringPerlCriticPolicies::Util;
-
-    my $foo = Mardem::RefactoringPerlCriticPolicies::Util->new();
-    ...
-
-=head1 EXPORT
-
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
-
-=head1 SUBROUTINES/METHODS
-
-=head2 function1
-
-=head2 function2
+This policy is part of L<Mardem::RefactoringPerlCriticPolicies|Mardem::RefactoringPerlCriticPolicies>.
 
 =head1 AUTHOR
 
 mardem, C<< <mardem at cpan.com> >>
 
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-mardem-refactoringperlcriticpolicies at rt.cpan.org>, or through
-the web interface at L<https://rt.cpan.org/NoAuth/ReportBug.html?Queue=Mardem-RefactoringPerlCriticPolicies>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
-
-
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc Mardem::RefactoringPerlCriticPolicies::Util
-
-
-You can also look for information at:
-
-=over 4
-
-=item * RT: CPAN's request tracker (report bugs here)
-
-L<https://rt.cpan.org/NoAuth/Bugs.html?Dist=Mardem-RefactoringPerlCriticPolicies>
-
-=item * CPAN Ratings
-
-L<https://cpanratings.perl.org/d/Mardem-RefactoringPerlCriticPolicies>
-
-=item * Search CPAN
-
-L<https://metacpan.org/release/Mardem-RefactoringPerlCriticPolicies>
-
-=back
-
-
-=head1 ACKNOWLEDGEMENTS
-
-
 =head1 LICENSE AND COPYRIGHT
 
-This software is copyright (c) 2022 by mardem.
+Copyright (c) 2022, mardem
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
+the same terms as the Perl 5 programming language system itself. The
+full text of this license can be found in the LICENSE file included
+with this module.
 
 =cut
