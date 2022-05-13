@@ -1,4 +1,8 @@
 
+set PERL5LIB= ...
+set RELEASE_TESTING=1
+set TEST_AUTHOR=1
+
 prove -b t/ xt/
 
 perl Build.PL
