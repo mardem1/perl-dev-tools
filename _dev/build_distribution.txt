@@ -1,4 +1,6 @@
 
+prove -b t/ xt/
+
 perl Build.PL
 ./Build
 ./Build distcheck
