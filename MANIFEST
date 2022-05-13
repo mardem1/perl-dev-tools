@@ -25,3 +25,4 @@ xt/80-pod.t
 xt/90-pod-coverage.t
 META.yml
 META.json
+MANIFEST.SKIP
