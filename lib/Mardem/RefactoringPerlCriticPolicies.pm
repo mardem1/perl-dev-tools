@@ -80,7 +80,7 @@ announcing their participation in this grouping.
 
 Please report bugs on GitHub.
 
-The source code repository can be found at L<https://github.com/mardem1//mardem-refactoring-perlcritic-policies>
+The source code repository can be found at L<https://github.com/mardem1/mardem-refactoring-perlcritic-policies>
 
 =head1 AUTHOR
 
