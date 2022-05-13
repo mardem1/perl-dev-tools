@@ -16,12 +16,12 @@ overall starting point see:
 
 but these are for some bigger scans, so these new policies should check (or begin) in smaller chunks:
 
-1. **ProhibitReturnBooleanAsInt** - return boolean as int "return 1;"
-1. **ProhibitConditionComplexity** - condition complexity "if/while/for/... (...){}"
-1. **ProhibitManyConditionsInSub** - subs has many conditionals "if, while, for, ..."
-1. **ProhibitLargeBlock** - large code block as statement count "{...}"
-1. **ProhibitBlockComplexity** - code block complexity "{...}"
-1. **ProhibitLargeSub** - large subs as statement count
+1. **[ProhibitReturnBooleanAsInt](lib/Perl/Critic/Policy/Mardem/ProhibitReturnBooleanAsInt.pm)** - return boolean as int "return 1;"
+1. **[ProhibitConditionComplexity](lib/Perl/Critic/Policy/Mardem/ProhibitConditionComplexity.pm)** - condition complexity "if/while/for/... (...){}"
+1. **[ProhibitManyConditionsInSub](lib/Perl/Critic/Policy/Mardem/ProhibitManyConditionsInSub.pm)** - subs has many conditionals "if, while, for, ..."
+1. **[ProhibitLargeBlock](lib/Perl/Critic/Policy/Mardem/ProhibitLargeBlock.pm)** - large code block as statement count "{...}"
+1. **[ProhibitBlockComplexity](lib/Perl/Critic/Policy/Mardem/ProhibitBlockComplexity.pm)** - code block complexity "{...}"
+1. **[ProhibitLargeSub](lib/Perl/Critic/Policy/Mardem/ProhibitLargeSub.pm)** - large subs as statement count
 
 ## INSTALLATION
 
