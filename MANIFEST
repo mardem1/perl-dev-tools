@@ -23,3 +23,5 @@ t/80-boolean-as-int.t
 xt/10-manifest.t
 xt/80-pod.t
 xt/90-pod-coverage.t
+META.yml
+META.json
