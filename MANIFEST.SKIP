@@ -3,6 +3,8 @@ ignore.txt
 .includepath
 .project
 
+.git/
+
 _dev/.perlcriticrc
 _dev/.perltidyrc
 _dev/build_distribution.pl
