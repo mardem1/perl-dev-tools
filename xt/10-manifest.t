@@ -12,17 +12,18 @@ our $VERSION = '0.01';
 use Test::More;
 use English qw( -no_match_vars );
 
-if ( !$ENV{ 'RELEASE_TESTING' } ) {
+if ( !$ENV{ 'RELEASE_TESTING' } || !$ENV{ 'TEST_AUTHOR' } ) {
     plan 'skip_all' => 'Author tests not required for installation';
 }
+else {
+    my $min_tcm = 0.9;                          ## no critic (ProhibitMagicNumbers)
+    eval "use Test::CheckManifest $min_tcm";    ## no critic (ProhibitStringyEval,RequireCheckingReturnValueOfEval)
+    if ( $EVAL_ERROR ) {
+        plan 'skip_all' => "Test::CheckManifest $min_tcm required";
+    }
 
-my $min_tcm = 0.9;                          ## no critic (ProhibitMagicNumbers)
-eval "use Test::CheckManifest $min_tcm";    ## no critic (ProhibitStringyEval,RequireCheckingReturnValueOfEval)
-if ( $EVAL_ERROR ) {
-    plan 'skip_all' => "Test::CheckManifest $min_tcm required";
+    ok_manifest( { 'filter' => [ qr/ignore[.]txt/aaixmso, qr/[.]gitignore/aaixmso ] } );
 }
-
-ok_manifest( { 'filter' => [ qr/ignore[.]txt/aaixmso, qr/[.]gitignore/aaixmso ] } );
 
 done_testing();
 
@@ -54,8 +55,8 @@ Markus Demml, mardem@cpan.com
 
 Copyright (c) 2022, Markus Demml
 
-This library is free software; you can redistribute it and/or modify it 
-under the same terms as the Perl 5 programming language system itself. 
+This library is free software; you can redistribute it and/or modify it
+under the same terms as the Perl 5 programming language system itself.
 The full text of this license can be found in the LICENSE file included
 with this module.
 
