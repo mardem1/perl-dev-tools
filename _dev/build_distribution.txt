@@ -1,0 +1,14 @@
+
+perl Build.PL
+./Build
+./Build distcheck
+./Build disttest
+./Build testcover
+./Build distinstall
+./Build dist
+./Build distclean
+
+perl Build.PL
+./Build
+./Build test
+./Build install

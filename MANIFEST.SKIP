@@ -7,7 +7,7 @@ ignore.txt
 
 _dev/.perlcriticrc
 _dev/.perltidyrc
-_dev/build_distribution.pl
+_dev/build_distribution.txt
 _dev/notes.txt
 _dev/run-10-perl-tidy.pl
 _dev/run-20-perl-compile.pl
