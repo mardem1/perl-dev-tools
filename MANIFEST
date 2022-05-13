@@ -11,6 +11,7 @@ lib/Perl/Critic/Policy/Mardem/ProhibitReturnBooleanAsInt.pm
 LICENSE
 MANIFEST			This list of files
 README
+README.md
 t/10-rquire.t
 t/20-load.t
 t/30-complex-condition.t
