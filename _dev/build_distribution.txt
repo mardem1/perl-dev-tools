@@ -9,9 +9,14 @@ perl Build.PL
 ./Build
 ./Build distcheck
 ./Build disttest
+
+./Build test
 ./Build testcover
+cover -delete
+
 ./Build distinstall
 ./Build dist
+./Build clean
 ./Build distclean
 
 perl Build.PL
