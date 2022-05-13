@@ -153,19 +153,19 @@ Helper script to run a pod on all files.
 
 =head1 AFFILIATION
 
-This policy is part of L<Mardem::RefactoringPerlCriticPolicies|Mardem::RefactoringPerlCriticPolicies>.
+This policy is part of L<Mardem::RefactoringPerlCriticPolicies>.
 
 =head1 AUTHOR
 
-mardem, C<< <mardem1 at users.noreply.github.com> >>
+Markus Demml, mardem@cpan.com
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2022, mardem
+Copyright (c) 2022, Markus Demml
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself. The
-full text of this license can be found in the LICENSE file included
+This library is free software; you can redistribute it and/or modify it 
+under the same terms as the Perl 5 programming language system itself. 
+The full text of this license can be found in the LICENSE file included
 with this module.
 
 =cut

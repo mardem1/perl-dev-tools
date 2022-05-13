@@ -99,13 +99,15 @@ Perl::Critic::Policy::Mardem::ProhibitManyConditionsInSub
 
 =head1 DESCRIPTION
 
-This Policy counts the conditions within a sub. (more precise the PPI::Structure::Condition's, PPI::Structure::For's and PPI::Structure::Given's)
+This Policy counts the conditions within a sub.
+(more precise the PPI::Structure::Condition's,
+PPI::Structure::For's and PPI::Structure::Given's)
 
 =head1 CONFIGURATION
 
-The maximum acceptable Condition-Count can be set with the C<condition_count_limit>
-configuration item. Any sub with a count higher than this number will generate a
-policy violation. The default is 3.
+The maximum acceptable Condition-Count can be set with the
+C<condition_count_limit> configuration item. Any sub with a count higher than
+this number will generate a policy violation. The default is 3.
 
 An example section for a F<.perlcriticrc>:
 
@@ -114,19 +116,19 @@ An example section for a F<.perlcriticrc>:
 
 =head1 AFFILIATION
 
-This policy is part of L<Mardem::RefactoringPerlCriticPolicies|Mardem::RefactoringPerlCriticPolicies>.
+This policy is part of L<Mardem::RefactoringPerlCriticPolicies>.
 
 =head1 AUTHOR
 
-mardem, C<< <mardem1 at users.noreply.github.com> >>
+Markus Demml, mardem@cpan.com
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2022, mardem
+Copyright (c) 2022, Markus Demml
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself. The
-full text of this license can be found in the LICENSE file included
+This library is free software; you can redistribute it and/or modify it
+under the same terms as the Perl 5 programming language system itself.
+The full text of this license can be found in the LICENSE file included
 with this module.
 
 =cut
