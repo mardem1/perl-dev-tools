@@ -19,7 +19,7 @@
 
 Please report bugs on GitHub.
 
-The source code repository can be found at [https://github.com/mardem1/mardem-perl-dev-tools](https://github.com/mardem1/mardem-perl-dev-tools)
+The source code repository can be found at [https://github.com/mardem1/perl-dev-tools](https://github.com/mardem1/perl-dev-tools)
 
 ## AUTHOR
 
