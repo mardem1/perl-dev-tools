@@ -1,48 +1,25 @@
 
-# Mardem-PerlRefactoringSupport
+# Mardem Perl DevTools
+
+...
 
 ## DESCRIPTION
 
-Perl-Critic Policies for simple and isolated Refactoring-Support.
-
-This Perl-Crictic Policy-Modules should help where to start a safe
-refactoring in old leagacy Perl code.
-
-The McCabe complexity check within the standard Perl-Critic Module are a good
-overall starting point see:
-
-* [Perl::Critic::Policy::Modules::ProhibitExcessMainComplexity](https://metacpan.org/pod/Perl::Critic::Policy::Modules::ProhibitExcessMainComplexity)
-* [Perl::Critic::Policy::Subroutines::ProhibitExcessComplexity](https://metacpan.org/pod/Perl::Critic::Policy::Subroutines::ProhibitExcessComplexity)
-
-but these are for some bigger scans, so these new policies should check (or begin) in smaller chunks:
-
-1. **[ProhibitReturnBooleanAsInt](lib/Perl/Critic/Policy/Mardem/ProhibitReturnBooleanAsInt.pm)** - return boolean as int "return 1;"
-1. **[ProhibitConditionComplexity](lib/Perl/Critic/Policy/Mardem/ProhibitConditionComplexity.pm)** - condition complexity "if/while/for/... (...){}"
-1. **[ProhibitManyConditionsInSub](lib/Perl/Critic/Policy/Mardem/ProhibitManyConditionsInSub.pm)** - subs has many conditionals "if, while, for, ..."
-1. **[ProhibitLargeBlock](lib/Perl/Critic/Policy/Mardem/ProhibitLargeBlock.pm)** - large code block as statement count "{...}"
-1. **[ProhibitBlockComplexity](lib/Perl/Critic/Policy/Mardem/ProhibitBlockComplexity.pm)** - code block complexity "{...}"
-1. **[ProhibitLargeSub](lib/Perl/Critic/Policy/Mardem/ProhibitLargeSub.pm)** - large subs as statement count
+...
 
 ## INSTALLATION
 
-To install this module, run the following commands:
-
-```
-  perl Build.PL
-  ./Build
-  ./Build test
-  ./Build install
-```
+...
 
 ## SUPPORT AND DOCUMENTATION
 
-Each policy has its own detailed documentation.
+...
 
 ## BUG REPORTS
 
 Please report bugs on GitHub.
 
-The source code repository can be found at [https://github.com/mardem1/mardem-refactoring-perlcritic-policies](https://github.com/mardem1/mardem-refactoring-perlcritic-policies)
+The source code repository can be found at [https://github.com/mardem1/mardem-perl-dev-tools](https://github.com/mardem1/mardem-perl-dev-tools)
 
 ## AUTHOR
 
