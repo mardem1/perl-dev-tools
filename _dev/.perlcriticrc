@@ -4,7 +4,9 @@ only = 0
 severity = brutal
 
 # freenode is alias to community
-theme = !freenode
+# theme = !freenode
+
+exclude = Freenode
 
 [-Mardem::ProhibitBlockComplexity]
 [-Mardem::ProhibitConditionComplexity]
